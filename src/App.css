@@ -31,3 +31,29 @@ body{
   width: 100%;
   padding-top: 400px;
 }
+
+
+.sideNav {
+  height: 200px;
+  width: 15%;
+  background-color: black;
+  box-shadow: 2px 2px 5px #121212;
+  text-align: center;
+}
+
+.sideNav p {
+  color: #9f9f9f;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.sideNav p:hover{
+  color: white;
+  padding: 10px;
+}
+
+
+

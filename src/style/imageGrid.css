@@ -1,12 +1,22 @@
 .row{
     display:inline-flexbox ; 
     justify-content: space-around;
-    width: 100%;
+    width: 75% ; 
+    float : right ; 
+    margin-top: -200px;
+    
 }
 
 .col{
     float: left ;
-    background-color: red;
+    /* background-color: red; */
     width: 30%;
-    margin: 10px;
+    margin: 5px;
+}
+
+
+img {
+    width: 100%; 
+    height: auto;
+    margin-bottom: 5px ;
 }
