@@ -11,6 +11,11 @@ body{
 .banner{
   background-image: url("man.jpg");
   background-size: cover;
+  background-position:center;
+  background-position-y: 1em;
+  background-repeat: no-repeat;
+  /* -webkit-filter: grayscale(100%); */
+  filter: grayscale(100%) brightness(140%);
   width: 100%;
   height: 500px;
 }
@@ -20,7 +25,10 @@ body{
   height:  500px;
   width:  100%;
   position: absolute;
-  background-image: linear-gradient(transparent, black);
+  background-image: linear-gradient(transparent, black) , 
+                    linear-gradient(90deg  , transparent , rgba(0 , 0 , 0 , 0.6)) ,
+                    linear-gradient(-90deg  , transparent , rgba(0 , 0 , 0  , 0.6));
+  
   overflow: hidden;
 }
 
@@ -38,4 +46,45 @@ body{
 }
 
 
+/* for Scroller-notrack */
+.myscroller-notrack::-webkit-scrollbar {
+  width: 0.6em;
+}
 
+.myscroller-notrack::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.3);
+}
+
+.myscroller-notrack::-webkit-scrollbar-thumb {
+  background-color: #474747;
+  outline: 1px solid #3d3a3b;
+}
+/* end for scroller part  */
+
+
+
+
+/* background Image Size Based On Media Size */
+@media (min-width: 400px) {
+  .banner {
+      background-size: 70em;
+      
+  }
+}
+
+@media (min-width: 500px) {
+  .banner {
+    background-size: 70em;
+    
+  }
+}
+
+@media (min-width: 600px) {
+  .banner {
+    background-position-y: 1em;
+    
+  }
+}
+
+
+/* END - #Banner */
