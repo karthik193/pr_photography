@@ -5,7 +5,7 @@ export default function Banner(){
 	return <div className = "banner">
 		<div className = "bannerIn">
 			<p>{info.admin.name}</p> <br/>
-	    	<img align = "right" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  alt  = "NO IMAGGE"  />
+	    	{/* <img align = "right" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  alt  = "NO IMAGGE"  /> */}
 	    </div>
 	</div>
 }

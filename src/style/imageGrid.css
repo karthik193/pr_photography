@@ -1,9 +1,8 @@
 .row{
     display:inline-flexbox ; 
     justify-content: space-around;
-    width: 75% ; 
+    width: 85% ; 
     float : right ; 
-    margin-top: -200px;
     
 }
 

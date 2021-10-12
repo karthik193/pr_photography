@@ -14,7 +14,6 @@ function App() {
       <Banner />
       <div className  = "navImage" >
         <Navbar />
-        <About />
         <ImageGrid />
       </div>
       
