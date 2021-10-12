@@ -1,0 +1,12 @@
+.row{
+    display:inline-flexbox ; 
+    justify-content: space-around;
+    width: 100%;
+}
+
+.col{
+    float: left ;
+    background-color: red;
+    width: 30%;
+    margin: 10px;
+}
