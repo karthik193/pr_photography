@@ -1,15 +1,23 @@
 import './App.css';
-import './style/about.css'
-import info from './dataReference/info' ; 
+import './style/about.css';
+import Banner from "./components/Banner";
+import Navbar from './components/Navbar';
+import About from './components/About';
+import {Switch, Route} from "react"
 
-import ImageGrid from "./components/imageGrid" ; 
+import ImageGrid from './components/imageGrid' ;
+import ContactInfo from './components/contact'
+
 function App() {
   return (
-    <div className="App"  align = "center">
-      <h1>{info.title}</h1> <br/>
-      My name is {info.admin.name}<br/>
-      <img src = {process.env.PUBLIC_URL + "/Images/logo.png"}  alt  = "NO IMAGGE"  />
-      <ImageGrid></ImageGrid>
+    <div className="App">
+      <Banner />
+      <div className  = "navImage" >
+        <Navbar />
+        <ImageGrid />
+      </div>
+      <ContactInfo />
+      
     </div>
   );
 }
