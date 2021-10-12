@@ -6,7 +6,7 @@ import About from './components/About';
 import {Switch, Route} from "react"
 
 import ImageGrid from './components/imageGrid' ;
-
+import ContactInfo from './components/contact'
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Navbar />
         <ImageGrid />
       </div>
+      <ContactInfo />
       
     </div>
   );
