@@ -1,12 +1,11 @@
 import './App.css';
-import './style/about.css'
-import info from './dataReference/info' ; 
+import './style/about.css';
+import Banner from "./components/Banner";
+
 function App() {
   return (
-    <div className="App"  align = "center">
-      <h1>{info.title}</h1> <br/>
-      My name is {info.admin.name}<br/>
-      <img src = {process.env.PUBLIC_URL + "/Images/logo.png"}  alt  = "NO IMAGGE"  />
+    <div className="App">
+      <Banner />
     </div>
   );
 }
