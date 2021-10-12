@@ -1,9 +1,10 @@
 import React from "react";
+import "../style/navbar.css";
 
 export default function Navbar(){
     return <div className = "sideNav">
-        <p>About</p>
-        <p>Categories</p>
-        <p>Contact</p>
+        <p>ABOUT</p>
+        <p>CATEGORIES</p>
+        <p>CONTACT</p>
     </div>;
 }
