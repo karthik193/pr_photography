@@ -5,13 +5,20 @@ import Navbar from './components/Navbar';
 import About from './components/About';
 import {Switch, Route} from "react"
 
+import ImageGrid from './components/imageGrid' ;
+
+
 function App() {
   return (
     <div className="App">
       <Banner />
-      <Navbar />
-      <About />
-  </div>
+      <div className  = "navImage" >
+        <Navbar />
+        <About />
+        <ImageGrid />
+      </div>
+      
+    </div>
   );
 }
 
