@@ -1,0 +1,27 @@
+.LoginInputField{
+    outline: none ; 
+    border : none ; 
+    border-bottom: 1px solid gray ; 
+    background-color: transparent;
+    color : white ; 
+    font-family: inherit;
+    letter-spacing: .2em;
+    font-size: inherit;
+}
+.LoginButton{
+    margin : 2em ; 
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    padding: .5em;
+    background-color: transparent;
+    color : inherit ; 
+    cursor: pointer;
+}
+
+.LoginButton:hover{
+    border-color: white ; 
+    transition-property: border;
+    transition-duration: .8s;
+}
+

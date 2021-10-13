@@ -3,11 +3,11 @@ import './style/about.css';
 import Banner from "./components/Banner";
 import Navbar from './components/Navbar';
 import About from './components/About';
-
+import Login from './components/admin/Login' ;
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 
 import ImageGrid from './components/imageGrid' ;
-import ContactInfo from './components/contact'
+import ContactInfo from './components/contact' ; 
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={ImageGrid}/>
             <Route exact path="/about" component={About}/>
+            <Route exact path="/adminLogin" component={Login}/>
           </Switch>
         </Router>
         
