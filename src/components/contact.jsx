@@ -1,10 +1,6 @@
-import React from "react"  ; 
+import React from "react";
+import '../style/contact.css';
 
-
-export default function Contact(){
-    return (
-        <div className = "ContactInfo" >
-            
-        </div>
-    )
+export default function Contact() {
+    return <div className = "contact">Contact</div>;
 }
