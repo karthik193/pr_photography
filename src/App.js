@@ -14,9 +14,8 @@ function App() {
     <div className="App">
       <Banner />
       <div className  = "navImage" >
-        <Navbar />
-
         <Router>
+          <Navbar />
           <Switch>
             <Route exact path="/" component={ImageGrid}/>
             <Route exact path="/about" component={About}/>
