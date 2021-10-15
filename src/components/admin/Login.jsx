@@ -3,8 +3,8 @@ import {getAuth , signInWithEmailAndPassword , onAuthStateChanged } from 'fireba
 import firebaseApp from '../../database/firebaseApp'; 
 import '../../style/Login.css' ; 
 import { useHistory} from "react-router";
-export default function Login(){
-
+export default function Login(props){
+    props.setShowNav(false);
     const history = useHistory() ; 
     const auth = getAuth();
     const verifyAdmin = (email , password)=>{
