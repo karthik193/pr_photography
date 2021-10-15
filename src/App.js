@@ -21,9 +21,9 @@ function App() {
         <Router>
           {showNav === true ? <Navbar /> : null}
           <Switch>
-            <Route exact path="/" component={ImageGrid}/>
-            <Route exact path="/about" component={About}/>
-            <Route exact path="/contact" component={Contact}/>
+            <Route exact path="/" render={(props) => <ImageGrid setShowNav={setShowNav} {...props} />  } />
+            <Route exact path="/about" render={(props) => <About setShowNav={setShowNav} {...props} />  } />
+            <Route exact path="/contact" render={(props) => <Contact setShowNav={setShowNav} {...props} />  } />
             <Route exact path="/adminLogin" render={(props) => <Login setShowNav={setShowNav} {...props} />  } />
           </Switch>
         </Router>

@@ -2,7 +2,8 @@ import React from "react" ;
 
 import './../style/imageGrid.css' ; 
 
-export default function ImageGrid() {
+export default function ImageGrid(props) {
+    props.setShowNav(true);
     return (
         <div  className  = "row" align = "center">
             <div className = "col">
