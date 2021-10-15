@@ -6,7 +6,7 @@ import './style/about.css';
 import Banner from "./components/Banner";
 import Navbar from './components/Navbar';
 import About from './components/About';
-import Contact from './components/Contact';
+import Contact from './components/contact';
 import ImageGrid from './components/imageGrid' ;
 import Login from './components/admin/Login' ;
 

@@ -3,6 +3,8 @@ import {getAuth , signInWithEmailAndPassword , onAuthStateChanged } from 'fireba
 import firebaseApp from '../../database/firebaseApp'; 
 import '../../style/Login.css' ; 
 import { useHistory} from "react-router";
+
+
 export default function Login(){
 
     const history = useHistory() ; 
@@ -29,6 +31,9 @@ export default function Login(){
         const email  = event.target.email.value; 
         const password = event.target.password.value ; 
         const vertificationStatus  = verifyAdmin(email , password) 
+        if(vertificationStatus){
+            history.push('/') ; 
+        }else alert("Unable to Sign you in");
 
     } ; 
 
