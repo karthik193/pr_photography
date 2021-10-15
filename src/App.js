@@ -16,9 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <Banner />
-      <div className  = "navImage" >
         <Router>
+          <Banner />
           {showNav === true ? <Navbar /> : null}
           <Switch>
             <Route exact path="/" render={(props) => <ImageGrid setShowNav={setShowNav} {...props} />  } />
@@ -28,7 +27,6 @@ function App() {
           </Switch>
         </Router>
         
-      </div>
       
     </div>
   );
