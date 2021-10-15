@@ -9,6 +9,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import ImageGrid from './components/imageGrid' ;
 import Login from './components/admin/Login' ;
+import Upload from './components/admin/Upload' ; 
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/about" render={(props) => <About setShowNav={setShowNav} {...props} />  } />
             <Route exact path="/contact" render={(props) => <Contact setShowNav={setShowNav} {...props} />  } />
             <Route exact path="/adminLogin" render={(props) => <Login setShowNav={setShowNav} {...props} />  } />
+            <Route exact path="/upload" render={(props) => <Upload setShowNav={setShowNav} {...props} />  } />
           </Switch>
         </Router>
         

@@ -3,11 +3,18 @@ import {getAuth , signInWithEmailAndPassword , onAuthStateChanged } from 'fireba
 import firebaseApp from '../../database/firebaseApp'; 
 import '../../style/Login.css' ; 
 import { useHistory} from "react-router";
+
+
 export default function Login(props){
     props.setShowNav(false);
     const history = useHistory() ; 
     const auth = getAuth();
-    const verifyAdmin = (email , password)=>{
+
+
+    if(localStorage.getItem("admin") == "true"){
+        history.push("/upload") ; 
+    }
+    const verifyAdmin = async (email , password)=> {
 
         
         signInWithEmailAndPassword(auth, email, password)
@@ -15,7 +22,8 @@ export default function Login(props){
             // Signed in 
             const user = userCredential.user;
             console.log("Signed in as admin")
-            history.push('/') ; 
+            localStorage.setItem("admin" , true) ;
+            history.push('/upload') ; 
             
         })
         .catch((error) => {
@@ -28,14 +36,14 @@ export default function Login(props){
         event.preventDefault() ; 
         const email  = event.target.email.value; 
         const password = event.target.password.value ; 
-        const vertificationStatus  = verifyAdmin(email , password) 
+        verifyAdmin(email , password) ; 
 
     } ; 
 
 
     onAuthStateChanged(auth , (user)=>{
         if(user){
-            history.push("/") ; 
+            history.push("/upload") ; 
         }
     })
     return(
