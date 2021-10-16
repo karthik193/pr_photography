@@ -1,0 +1,36 @@
+
+.uploadBox {
+    width: 85%;
+    height: 400px;
+    float: right;
+}
+
+.label {
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.input {
+    border:  none;
+    margin-top: 5px;
+    font-size: 20px;
+    background-color: #2f2f2f;
+    width: 80%;
+    color: white;
+    letter-spacing: 2px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.uploadButton {
+    border: none;
+    background-color: dimgrey;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 20px;
+}
