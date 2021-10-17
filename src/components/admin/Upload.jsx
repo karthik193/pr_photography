@@ -5,6 +5,7 @@ import { redirectHandler } from "../../functions/helpers";
 import uploadFile from "../../functions/firebaseStorage";
 import '../../style/upload.css';
 
+
 export default function UploadImage(props){
     props.setShowNav(true);
     const auth  = getAuth() ; 

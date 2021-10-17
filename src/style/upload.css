@@ -18,19 +18,28 @@
     width: 80%;
     color: white;
     letter-spacing: 2px;
+    padding: .3em;
+    border-radius: .2em;
 }
 
 .input:focus {
     outline: none;
 }
 
-.uploadButton {
-    border: none;
-    background-color: dimgrey;
-    color: white;
+.uploadButton{
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    padding: .5em;
+    background-color: transparent;
+    color : inherit ; 
     cursor: pointer;
-    padding: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    font-size: 20px;
 }
+
+.uploadButton:hover{
+    border-color: white ; 
+    transition-property: border;
+    transition-duration: .8s;
+}
+
+
