@@ -29,7 +29,21 @@ export default function UploadImage(props){
     }
 
 
+    const previewImageHandler = (event) =>{
+        if(event.target.value != "" ){
+            const ImageFile = event.target.files[0] ; 
+            if(ImageFile.type.split("/")[0] === "image"){
+                console.log("Valid Image") ; 
+                const reader  = new FileReader() ; 
+                reader.addEventListener("load" , function(){
+                    var preImageElement  = document.getElementById("previewImage") ; 
+                    preImageElement.setAttribute("src" , this.result) ; 
 
+                }) ; 
+                reader.readAsDataURL(ImageFile) ; 
+            }else alert("Invalid Image File"); 
+        }
+    }
     return(
 
         <div className="uploadBox">
@@ -42,8 +56,29 @@ export default function UploadImage(props){
                 }
             }
         ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p>
-
-        <input type="file" className="fileUpload" id = "fileUpload" accept = "image/*" name="filename" onChange = {(e) => {e.target.value != "" && e.target.files[0].type.split("/")[0] === "image" ? console.log("Valid") : e.target.value = "";}}/>
+        <img
+            id  = "previewImage"  
+            alt = "no Image to Preview" 
+            style = {{ 
+                width :"30%", 
+                height: "auto"
+            }}
+        ></img>
+        <br /><br />
+        <button className= "uploadButton" 
+                style  = {{ borderRadius :".1em" , textAlign:"center" , fontSize :"1em"}} 
+                onClick = {()=>{
+                    document.getElementById("fileUpload").click() ; 
+                }}
+        >Select Image</button>
+        <input type="file" 
+                className="fileUpload" 
+                id = "fileUpload" 
+                accept = "image/*" 
+                name="filename" 
+                onChange = {previewImageHandler}
+                style = {{ display:"none"}}
+        />
         <br /><br />
 
         <label className="label">Alt Text*</label><br />
