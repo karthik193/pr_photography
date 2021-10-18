@@ -52,7 +52,9 @@ export default function UploadImage(props){
                 ()=>{
                     localStorage.clear();
                     auth.signOut() ; 
-                    redirectHandler(history  , "/adminLogin");
+                    setTimeout(() => {
+                        redirectHandler(history  , "/adminLogin");
+                    }, 200);
                 }
             }
         ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p>

@@ -17,8 +17,32 @@
     width: 100%; 
     height: auto;
     margin-bottom: 5px ;
+    transition: 0.2s ease;
+}
+
+.gridImage:hover{
+    opacity: 20%;
+
 }
 
 
+.imageBox{
+        position: relative;
+        text-align: center;
+        color: white;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.noDisplay{
+    visibility: hidden ; 
+}
+.display{
+    visibility:visible  ; 
+}
 
 
