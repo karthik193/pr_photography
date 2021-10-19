@@ -5,7 +5,13 @@
     background-color: black;
     text-align: center;
     position: fixed;
-  }
+    transition: 0.2s ease;
+}
+
+.collapse {
+  margin-top: -200px;
+  transition: 0.2s ease;
+}
   
 .sideNav p {
   color: #9f9f9f;

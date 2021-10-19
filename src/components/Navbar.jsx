@@ -11,10 +11,9 @@ export default function Navbar(props){
     const path = useState("");
 
     return  <div><img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
-    <div className = "sideNav">
+    <div className = "sideNav" id = "sideNav">
         <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
-        <p>CATEGORIES</p>
-        <Collapsible trigger="CATEGORIES" className = "collapsible">
+        <Collapsible trigger="CATEGORIES" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
             <p>Category1</p>
             <p>Category2</p>
             <p>Category3</p>
