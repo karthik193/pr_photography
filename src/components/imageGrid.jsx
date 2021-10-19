@@ -24,24 +24,31 @@ export default function ImageGrid(props) {
         setImages(arr) ; 
     });
 
-    const mouseOverHandler  = ()=>{
-        setIconDisplay(!iconDisplay) ; 
+    const mouseOverHandler  = (expandIconId)=>{
+         const expandIconElement  = document.getElementById(expandIconId) ; 
+         expandIconElement.className = "centered " + (!iconDisplay?"display":"noDisplay") ; 
+         setIconDisplay(!iconDisplay);
     }
     return (
         <div  className  = "row" align = "center">
             <div className = "col">
                 
-                {images.map((doc)=>{
+                {images.map((doc  , index)=>{
                     return(
                         <div className = "imageBox">
                             <img  
                                 className  = "gridImage" 
+                                key = {index}
                                 src = {doc.url} 
                                 alt  = {doc.alt}
-                                onMouseEnter = {mouseOverHandler}
-                                onMouseLeave = {mouseOverHandler}
+                                // doc.id  - index <>
+                                onMouseEnter = {()=>mouseOverHandler("expandIcon" +index)}
+                                onMouseLeave = {()=>mouseOverHandler("expandIcon" +index)}
                             ></img>
-                            <p className = {"centered " + (iconDisplay?"display":"noDisplay") } >
+                            <p 
+                                className = "centered"
+                                id  = {"expandIcon" +index}
+                            >
                                 <i className  = "fas fa-expand" style={{fontSize : "40px"}}></i>
                             </p>
                         </div>
