@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { redirectHandler } from "../../functions/helpers";
 import uploadFile from "../../functions/firebaseStorage";
 import '../../style/upload.css';
-import {getFirestore,doc, getDoc} from 'firebase/firestore' ; 
+import {getFirestore, doc, getDoc, updateDoc, arrayUnion} from 'firebase/firestore' ; 
 import Modal from 'react-modal';
 
 
@@ -18,6 +18,10 @@ export default function UploadImage(props){
     const [uploading, setUploading] = useState(false);
     const [catList, setCatList] = useState([]);
     const [modal, setModal] = useState(false);
+
+    const db = getFirestore();
+    const docRef = doc(db, "meta-info", "categories");
+
 
     const uploadHandler = () => {
         if(document.getElementById("category").value == null || document.getElementById("category").value == "" || document.getElementById("category").value == "Select" || document.getElementById("alt-text").value == null || document.getElementById("alt-text").value == "") {
@@ -66,14 +70,17 @@ export default function UploadImage(props){
     }
 
 
-    const addCatAndClose = () => {
+    const addCatAndClose = async () => {
+        if(document.getElementById("newCatInput").value == null || document.getElementById("newCatInput").value == "")
+            return;
+        await updateDoc(docRef, {
+          categoryList: arrayUnion(document.getElementById("newCatInput").value)
+        })        
         alert("Added new cat");
         toggleModal();
     }
 
     useEffect(async ()=>{
-        const db = getFirestore();
-        const docRef = doc(db, "meta-info", "categories");
         const docSnap = await getDoc(docRef);
         setCatList(docSnap.data().categoryList);
     });
@@ -149,7 +156,8 @@ export default function UploadImage(props){
             }}
         >
             <label>Add Category</label><br /><br />
-            <input type="text" className="input" style={{width:"90%"}}></input><br /><br />
+            <input type="text" className="input" style={{width:"90%"}} id = "newCatInput"></input><br /><br />
+            <button align = "right" className = "uploadButton" onClick={toggleModal} style = {{float: "left"}}>Close</button>
             <button align = "right" className = "uploadButton" onClick={addCatAndClose} style = {{float: "right"}}>Add</button>
         </Modal>
         </div> 
