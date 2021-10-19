@@ -95,7 +95,6 @@ export default function UploadImage(props){
         ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p>
         <img
             id  = "previewImage"  
-            alt = "no Image to Preview" 
             style = {{ 
                 width :"30%", 
                 height: "auto"
@@ -123,7 +122,7 @@ export default function UploadImage(props){
 
         <br /><br />
         <label className="label">Category*</label><br />
-        <select className="input" name = "category" id = "category" onClick={handleNewCat} required>
+        <select className="input selectBox" name = "category" id = "category" onClick={handleNewCat} required>
             <option>Select</option>
             {catList.map((cat) => <option>{cat}</option>)}
             <option>+ New</option>
