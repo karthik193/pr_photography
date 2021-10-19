@@ -1,9 +1,14 @@
 import { getAuth } from "@firebase/auth";
-import React, {useState} from "react" ; 
+import React, {useState, useEffect} from "react" ; 
 import { useHistory } from "react-router";
 import { redirectHandler } from "../../functions/helpers";
 import uploadFile from "../../functions/firebaseStorage";
 import '../../style/upload.css';
+import {getFirestore,doc, getDoc} from 'firebase/firestore' ; 
+import Modal from 'react-modal';
+
+
+Modal.setAppElement('#root');
 
 
 export default function UploadImage(props){
@@ -11,9 +16,11 @@ export default function UploadImage(props){
     const auth  = getAuth() ; 
     const history = useHistory() ; 
     const [uploading, setUploading] = useState(false);
+    const [catList, setCatList] = useState([]);
+    const [modal, setModal] = useState(false);
 
     const uploadHandler = () => {
-        if(document.getElementById("category").value == null || document.getElementById("category").value == "" || document.getElementById("alt-text").value == null || document.getElementById("alt-text").value == "") {
+        if(document.getElementById("category").value == null || document.getElementById("category").value == "" || document.getElementById("category").value == "Select" || document.getElementById("alt-text").value == null || document.getElementById("alt-text").value == "") {
             alert("Fill all the fields!");
             return;
         }
@@ -44,6 +51,34 @@ export default function UploadImage(props){
             }else alert("Invalid Image File"); 
         }
     }
+
+    const handleNewCat = (e) => {
+        if(e.target.value === "+ New"){
+            toggleModal();
+            e.target.value = "Select";
+        }
+
+    }
+
+
+    const toggleModal = () => {
+        setModal(!modal);
+    }
+
+
+    const addCatAndClose = () => {
+        alert("Added new cat");
+        toggleModal();
+    }
+
+    useEffect(async ()=>{
+        const db = getFirestore();
+        const docRef = doc(db, "meta-info", "categories");
+        const docSnap = await getDoc(docRef);
+        setCatList(docSnap.data().categoryList);
+    });
+
+
     return(
 
         <div className="uploadBox">
@@ -88,17 +123,31 @@ export default function UploadImage(props){
 
         <br /><br />
         <label className="label">Category*</label><br />
-        <select className="input" name = "category" id = "category" required>
-            <option>Fashion</option>
-            <option>Wildlife</option>
-            <option>Nature</option>
-            <option>Category1</option>
-            <option>Category2</option>
+        <select className="input" name = "category" id = "category" onClick={handleNewCat} required>
+            <option>Select</option>
+            {catList.map((cat) => <option>{cat}</option>)}
+            <option>+ New</option>
         </select>
 
         <br /> <br />
         <button className="uploadButton" name="upload" onClick = {uploadHandler} disabled = {uploading}>{uploading?"Uploading...":"Upload"}</button>
 
+
+        <Modal
+            isOpen={modal}
+            onRequestClose={toggleModal}
+            contentLabel="New Category Modal"
+            style = {{
+                content: {
+                    top: "50%",
+                    left: "50%",
+                    bottom: "auto",
+                    right: "auto"
+                }
+            }}
+        >
+        <button onClick={addCatAndClose}>close</button>
+        </Modal>
         </div> 
     )
 }
