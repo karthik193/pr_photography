@@ -10,6 +10,7 @@
     /* background-color: red; */
     width: 30%;
     margin: 5px;
+    
 }
 
 
@@ -25,7 +26,50 @@
 
 }
 
+.modalImage{
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+@media (max-width: 768px) {
+    .modalImage {
+        width: 100%;
+        height: fit-content;
+      
+    }
+    
+  }
+@media (min-width: 769px ) {
+    .modalImage{
+        width: 100%;
+        height: fit-content;
+    }
+}  
+@media (min-width: 992px) {
+    .modalImage{
+        height: 100%;
+        width: auto;
+    }
+}
 
+.modalCloseButton{
+    background: transparent;
+    color : white ; 
+    border : none ; 
+    outline: none;
+    font-size: 1.5em;
+    position: fixed;
+    cursor: pointer;
+    text-shadow: 0em 0em .4em  black;
+
+}
+.modalCloseButton:hover{
+    color : rgb(255, 86, 86) ; 
+    transition: .5s ease ;
+}
 .imageBox{
         position: relative;
         text-align: center;
