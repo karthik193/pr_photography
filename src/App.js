@@ -7,7 +7,7 @@ import Banner from "./components/Banner";
 import Navbar from './components/Navbar';
 import About from './components/About';
 import Contact from './components/Contact';
-import ImageGrid from './components/ImageGrid' ;
+import ImageGrid from './components/imageGrid' ;
 import Login from './components/admin/Login' ;
 import Upload from './components/admin/Upload' ; 
 
