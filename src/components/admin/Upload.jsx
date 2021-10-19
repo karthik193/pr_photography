@@ -82,7 +82,7 @@ export default function UploadImage(props){
     return(
 
         <div className="uploadBox">
-        <p style = {{cursor: "pointer", marginLeft: "75%", marginTop: "-32%", position: "fixed"}}
+        <p style = {{cursor: "pointer", marginLeft: "75%", top: "0", marginTop: "20px", position: "fixed"}}
             onClick = {
                 ()=>{
                     localStorage.clear();
@@ -141,11 +141,16 @@ export default function UploadImage(props){
                     top: "50%",
                     left: "50%",
                     bottom: "auto",
-                    right: "auto"
+                    right: "auto",
+                    background: "#252525",
+                    letterSpacing: "2px",
+                    transform: 'translate(-50%, -50%)',
                 }
             }}
         >
-        <button onClick={addCatAndClose}>close</button>
+            <label>Add Category</label><br /><br />
+            <input type="text" className="input" style={{width:"90%"}}></input><br /><br />
+            <button align = "right" className = "uploadButton" onClick={addCatAndClose} style = {{float: "right"}}>Add</button>
         </Modal>
         </div> 
     )
