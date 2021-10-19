@@ -31,3 +31,13 @@
     position: fixed;
 
 }
+
+.collapsible {
+  font-size: 12px;
+  color: #9f9f9f;
+  cursor: pointer;
+}
+
+.collapsible:hover {
+  color: white;
+}
