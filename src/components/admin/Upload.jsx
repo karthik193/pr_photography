@@ -1,6 +1,6 @@
 import { getAuth } from "@firebase/auth";
 import React, {useState, useEffect} from "react" ; 
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { redirectHandler } from "../../functions/helpers";
 import uploadFile from "../../functions/firebaseStorage";
 import '../../style/upload.css';
@@ -20,8 +20,22 @@ export default function UploadImage(props){
     const [catListFlag, setCatListFlag] = useState(false);
     const [modal, setModal] = useState(false);
 
+
     const db = getFirestore();
     const docRef = doc(db, "meta-info", "categories");
+    useEffect(async ()=>{
+        console.log("test2");
+        const docSnap = await getDoc(docRef);
+        setCatListFlag(true);
+        setCatList(docSnap.data().categoryList);
+    }, [catListFlag]);
+
+    if(localStorage.getItem("admin") != "true"){
+        return(
+            <Redirect to = "/adminLogin"></Redirect>
+        );
+    }
+    
 
 
     const uploadHandler = () => {
@@ -81,12 +95,7 @@ export default function UploadImage(props){
         toggleModal();
     }
 
-    useEffect(async ()=>{
-        console.log("test2");
-        const docSnap = await getDoc(docRef);
-        setCatListFlag(true);
-        setCatList(docSnap.data().categoryList);
-    }, [catListFlag]);
+    
 
 
     return(
