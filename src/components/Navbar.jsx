@@ -16,6 +16,7 @@ export default function Navbar(props){
     const [catList, setCatList] = useState([]);
     const Upload  = <p onClick = {() => {redirectHandler(history , "/upload")}}>UPLOAD</p> ; 
     const [sidebar, setSidebar] = useState(false);
+    const auth  = getAuth() ; 
     //var catList = [];
 
 
@@ -51,6 +52,19 @@ const styles = {
 
     return  <div>
         <img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
+            
+
+        <p style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed"}}
+            onClick = {
+                ()=>{
+                    localStorage.clear();
+                    auth.signOut() ; 
+                    setTimeout(() => {
+                        redirectHandler(history  , "/adminLogin");
+                    }, 200);
+                }
+            }
+        ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p>
         <div className="navbar">
             <div className = "sideNav" id = "sideNav">
                 {localStorage.getItem("admin") == "true" ? Upload : null}
@@ -63,12 +77,13 @@ const styles = {
         </div>
 
     <div className = "drawer">
-        <p onClick={toggleDrawer(true)}><i className='fas fa-chevron-circle-right' style={{fontSize:"36px", marginLeft: "-10px"}}></i></p>
+        <p onClick={toggleDrawer(true)} style = {{position: "fixed"}}><i className='fas fa-chevron-circle-right' style={{fontSize:"48px", marginLeft: "-10px"}}></i></p>
         <SwipeableDrawer
                 anchor="left"
                 open={sidebar}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
+                swipeAreaWidth = {200}
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
