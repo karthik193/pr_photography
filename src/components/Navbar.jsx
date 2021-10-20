@@ -70,7 +70,6 @@ const styles = {
                 onOpen={toggleDrawer(true)}
                           >
               <div className="swipeableIn">
-                  <h1>Hielel</h1>
                     <div className = "sideNav" id = "sideNav">
                         {localStorage.getItem("admin") == "true" ? Upload : null}
                         <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
