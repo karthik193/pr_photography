@@ -50,9 +50,40 @@
 }
 
 
+.swipeableIn {
+  background-color: #111111;
+  height: 100%;
+  width: 200px;
+}
+
+.drawer {
+  visibility: hidden;
+}
+
+
 @media (max-width: 768px) {
+
+  .sideNav {
+    width: 200px;
+    background-color: unset;
+  }
+
   .sideNav p{
-      font-size: 6px;
-      margin-left: -16px;
+    float: left;
+  }
+
+  .collapsible {
+    margin-left: -20px;
+  }
+
+  .collapsible:focus {
+    color:  white;
+  }
+  .navbar {
+    visibility: hidden;
+  }
+
+  .drawer {
+    visibility: visible;
   }
 }
