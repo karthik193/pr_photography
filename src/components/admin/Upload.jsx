@@ -92,17 +92,7 @@ export default function UploadImage(props){
     return(
 
         <div className="uploadBox">
-        <p style = {{cursor: "pointer", marginLeft: "75%", top: "0", marginTop: "20px", position: "fixed"}}
-            onClick = {
-                ()=>{
-                    localStorage.clear();
-                    auth.signOut() ; 
-                    setTimeout(() => {
-                        redirectHandler(history  , "/adminLogin");
-                    }, 200);
-                }
-            }
-        ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p>
+        
         <img
             id  = "previewImage"  
             style = {{ 
