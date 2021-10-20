@@ -22,7 +22,7 @@
 }
 
 .gridImage:hover{
-    opacity: 50%;
+    opacity: 25%;
 }
 
 .modalImage{
@@ -80,7 +80,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
+.expandIcon {
+    font-size: 2.3em;
+    transition: .3s ease-in-out;
+}
+.expandIcon:hover{
+    font-size: 2.6em;
+}
 .noDisplay{
     visibility: hidden ; 
 }
@@ -88,6 +94,27 @@
     visibility:visible  ; 
 }
 
+.gridDeleteBtn{
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: 4px;
+    padding : .5em ; 
+    height: 70%;
+    background-color: transparent;
+    color : inherit ; 
+    cursor: pointer;
+    border-radius: 3em;
+    
+}
+.gridDeleteBtn:hover{
+    border-color: red; 
+    color : red ; 
+    font-weight: bold;
+    border-radius: 0em;
+    background-color:black;
+    transition-duration: .8s;
+    
+}
 
 /* react - modal : Image Modal */
 .ReactModal__Overlay {
