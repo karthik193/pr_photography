@@ -22,7 +22,7 @@
 }
 
 .gridImage:hover{
-    opacity: 20%;
+    opacity: 50%;
 }
 
 .modalImage{
@@ -89,3 +89,16 @@
 }
 
 
+/* react - modal : Image Modal */
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 2000ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}

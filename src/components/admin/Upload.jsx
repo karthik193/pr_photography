@@ -143,6 +143,7 @@ export default function UploadImage(props){
             isOpen={modal}
             onRequestClose={toggleModal}
             contentLabel="New Category Modal"
+            closeTimeoutMS = {500}
             style = {{
                 content: {
                     top: "50%",
@@ -152,12 +153,19 @@ export default function UploadImage(props){
                     background: "#252525",
                     letterSpacing: "2px",
                     transform: 'translate(-50%, -50%)',
+                    border : "none" , 
+                    transition : "1s ease",
+                    minWidth : "250px", 
+                    maxWidth :"350px"
+                },
+                overlay:{
+                    backgroundColor:"rgba(0,0,0,0.9)"
                 }
             }}
         >
             <label>Add Category</label><br /><br />
-            <input type="text" className="input" style={{width:"90%"}} id = "newCatInput"></input><br /><br />
-            <button align = "right" className = "uploadButton" onClick={toggleModal} style = {{float: "left"}}>Close</button>
+            <input type="text" className="input" style={{width:"95%"}} id = "newCatInput"></input><br /><br />
+            <button align = "right" className = "uploadButton" onClick={toggleModal} style = {{float: "left"}}>Cancel</button>
             <button align = "right" className = "uploadButton" onClick={addCatAndClose} style = {{float: "right"}}>Add</button>
         </Modal>
         </div> 
