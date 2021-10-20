@@ -17,6 +17,7 @@ export default function UploadImage(props){
     const history = useHistory() ; 
     const [uploading, setUploading] = useState(false);
     const [catList, setCatList] = useState([]);
+    const [catListFlag, setCatListFlag] = useState(false);
     const [modal, setModal] = useState(false);
 
     const db = getFirestore();
@@ -81,9 +82,11 @@ export default function UploadImage(props){
     }
 
     useEffect(async ()=>{
+        console.log("test2");
         const docSnap = await getDoc(docRef);
+        setCatListFlag(true);
         setCatList(docSnap.data().categoryList);
-    });
+    }, [catListFlag]);
 
 
     return(

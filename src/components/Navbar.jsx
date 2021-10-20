@@ -13,9 +13,10 @@ export default function Navbar(props){
     const history = useHistory(); 
     const path = useState("");
     const [catListFlag, setCatListFlag] = useState(false);
+    const [catList, setCatList] = useState([]);
     const Upload  = <p onClick = {() => {redirectHandler(history , "/upload")}}>UPLOAD</p> ; 
     const [sidebar, setSidebar] = useState(false);
-    var catList = [];
+    //var catList = [];
 
 
     
@@ -43,14 +44,14 @@ const styles = {
         const db = getFirestore();
         const docRef = doc(db, "meta-info", "categories");
         const docSnap = await getDoc(docRef);
-        console.log("test")
-        catList = docSnap.data().categoryList;
+        console.log("test1")
         setCatListFlag(true);
+        setCatList(docSnap.data().categoryList);
     }, [catListFlag]);
 
     return  <div>
+        <img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
         <div className="navbar">
-            <img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
             <div className = "sideNav" id = "sideNav">
                 {localStorage.getItem("admin") == "true" ? Upload : null}
                 <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
@@ -62,7 +63,7 @@ const styles = {
         </div>
 
     <div className = "drawer">
-        <button onClick={toggleDrawer(true)}>click</button>
+        <p onClick={toggleDrawer(true)}><i className='fas fa-chevron-circle-right' style={{fontSize:"36px", marginLeft: "-10px"}}></i></p>
         <SwipeableDrawer
                 anchor="left"
                 open={sidebar}
@@ -71,6 +72,7 @@ const styles = {
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
+                        <img className="logoImg2" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}} alt  = "Logo"  />
                         {localStorage.getItem("admin") == "true" ? Upload : null}
                         <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
                         <Collapsible trigger="CATEGORIES" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
