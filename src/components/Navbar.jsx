@@ -64,12 +64,12 @@ const styles = {
                     }, 200);
                 }
             }
-        ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p>
+        ><i class="fa fa-power-off powerOffBtn"></i></p>
         <div className="navbar">
             <div className = "sideNav" id = "sideNav">
                 {localStorage.getItem("admin") == "true" ? Upload : null}
                 <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
-                <Collapsible trigger="CATEGORIES" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
+                <Collapsible trigger="PORTFOLIO" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
                     {catList.map((cat, index) => <p key = {index}>{cat}</p>)}
                 </Collapsible>
                 <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p>
@@ -90,7 +90,7 @@ const styles = {
                         <img className="logoImg2" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}} alt  = "Logo"  />
                         {localStorage.getItem("admin") == "true" ? Upload : null}
                         <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
-                        <Collapsible trigger="CATEGORIES" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
+                        <Collapsible trigger="PORTFOLIO" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
                             {catList.map((cat, index) => <p key = {index}>{cat}</p>)}
                         </Collapsible>
                         <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p>
