@@ -1,5 +1,5 @@
 .row{
-    display:inline-flexbox ; 
+    display: inline-flexbox ; 
     justify-content: space-around;
     width: 85% ; 
     float : right ; 
@@ -128,4 +128,25 @@
 
 .ReactModal__Overlay--before-close{
     opacity: 0;
+}
+
+.deleteImage{
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.deleteModalBtn{
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+    padding: .5em;
+    background-color: transparent;
+    color : inherit ; 
+    cursor: pointer;
+}
+
+.deleteModalBtn:hover{
+    border-color: white ; 
+    transition-property: border;
+    transition-duration: .8s;
 }
