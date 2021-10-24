@@ -5,7 +5,7 @@ import { redirectHandler } from "../functions/helpers";
 import "../style/navbar.css";
 import Collapsible from 'react-collapsible';
 import {getFirestore,doc, getDoc} from 'firebase/firestore' ; 
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Drawer from '@material-ui/core/Drawer';
 
 
 
@@ -78,12 +78,11 @@ const styles = {
 
     <div className = "drawer">
         <p onClick={toggleDrawer(true)} style = {{position: "fixed"}}><i className='fas fa-chevron-circle-right' style={{fontSize:"48px", marginLeft: "-10px"}}></i></p>
-        <SwipeableDrawer
+        <Drawer
                 anchor="left"
                 open={sidebar}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
-                swipeAreaWidth = {200}
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
@@ -96,7 +95,7 @@ const styles = {
                         <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p>
                     </div>
               </div>
-        </SwipeableDrawer>
+        </Drawer>
     </div>
     </div>;
 }
