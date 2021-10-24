@@ -15,7 +15,7 @@ export default function Navbar(props){
     const [catListFlag, setCatListFlag] = useState(false);
     const [catList, setCatList] = useState([]);
     const Upload  = <p onClick = {() => {redirectHandler(history , "/upload")}}>UPLOAD</p> ; 
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(false);  
     const auth  = getAuth() ; 
     //var catList = [];
 
@@ -54,7 +54,7 @@ const styles = {
         <img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
             
 
-        <p style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed"}}
+        {localStorage.getItem("admin") == "true" ? <p style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed", zIndex: "200"}}
             onClick = {
                 ()=>{
                     localStorage.clear();
@@ -64,7 +64,8 @@ const styles = {
                     }, 200);
                 }
             }
-        ><i class="fa fa-power-off powerOffBtn"></i></p>
+
+        ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p> : null}
         <div className="navbar">
             <div className = "sideNav" id = "sideNav">
                 {localStorage.getItem("admin") == "true" ? Upload : null}
