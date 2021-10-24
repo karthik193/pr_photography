@@ -6,7 +6,7 @@ import './../style/imageGrid.css' ;
 
 export default React.memo(function ImageGrid(props) {
     props.setShowNav(true);
-
+    const windowSize  = window.screen.availWidth ; 
     const [images , setImages] = useState([]) ; 
     const [modalStatus , setModalStatus] = useState({
         modalOpen : false , 
@@ -81,6 +81,7 @@ export default React.memo(function ImageGrid(props) {
                 style = {ModalStyle}
                 isOpen = {modalStatus.modalOpen}
                 contentLabel  = "Image Opener"
+                closeTimeoutMS = {500}
                 onRequestClose = {()=>imageModalHandler("")}
             >
 
@@ -92,9 +93,9 @@ export default React.memo(function ImageGrid(props) {
                 </button>
             </Modal>
                 {
-                    images.map((colImages , index) =>{
+                    images.map((colImages , colIndex) =>{
                         return(
-                            <div className = "col" key = {index}>
+                            <div className = "col" key = {colIndex}>
                                 {colImages.map((doc  , index)=>{
 
                                     
@@ -103,7 +104,11 @@ export default React.memo(function ImageGrid(props) {
                                             className = "imageBox"
                                             onMouseEnter = {()=>{mouseOverHandler(doc.id);}}
                                             onMouseLeave = {()=>{mouseOverHandler(doc.id);}}
-                                            onClick ={()=>imageModalHandler(doc.url )}
+                                            onClick ={()=>{
+                                                
+                                                if(window.screen.availWidth < 992)
+                                                imageModalHandler(doc.url )
+                                            }}
                                         >
                                             <img  
                                                 className  = "gridImage" 
@@ -111,12 +116,44 @@ export default React.memo(function ImageGrid(props) {
                                                 src = {doc.url} 
                                                 alt  = {doc.alt}
                                             ></img>
-                                            <p 
-                                                className = "centered  noDisplay"
+                                            <div
                                                 id  = {doc.id}
+                                                className = "centered  noDisplay"
+                                                style ={
+                                                    {
+                                                        display :"inline-flex" ,
+                                                        justifyContent:"space-around", 
+                                                        width : "80%", 
+                                                        
+                                                    }
+                                                }
                                             >
-                                                <i className  = "fas fa-expand" style={{fontSize : "40px"}} ></i>
-                                            </p>
+                                                <div 
+                                                    
+                                                    style = {
+                                                        {
+                                                            padding : "0em"
+                                                        }
+                                                    }
+                                                    onClick ={()=>imageModalHandler(doc.url )}
+                                                    
+                                                >
+                                                    <i className  = "fas fa-expand expandIcon"  
+                                                    
+                                                    ></i>
+                                                </div>
+                                                {
+                                                    localStorage.getItem("admin") == "true" && windowSize >= 992?
+                                                    <button
+                                                        className = "gridDeleteBtn"
+                                                    >
+                                                        DELETE
+                                                    </button>
+                                                    :null
+                                                }
+                                                
+                                            </div>
+                                            
                                         </div>
                                         
                                         

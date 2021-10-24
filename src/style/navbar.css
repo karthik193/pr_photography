@@ -12,6 +12,7 @@
   bottom: unset;
   margin-top: -300px;
   transition: 0.2s ease;
+  cursor: pointer;
 }
   
 .sideNav p {
@@ -95,4 +96,14 @@
   .drawer {
     visibility: visible;
   }
+}
+
+.powerOffBtn{
+  font-size: 2em;
+  color : whitesmoke ; 
+}
+.powerOffBtn:hover { 
+  transition-duration: .7s;
+  text-shadow: 0em 0em 1em rgb(255, 77, 77);
+  color : rgb(255, 43, 43) ; 
 }
