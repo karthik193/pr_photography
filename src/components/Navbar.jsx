@@ -88,12 +88,16 @@ const styles = {
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
                         <img className="logoImg2" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}} alt  = "Logo"  />
-                        {localStorage.getItem("admin") == "true" ? Upload : null}
-                        <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
-                        <Collapsible trigger="PORTFOLIO" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
-                            {catList.map((cat, index) => <p key = {index}>{cat}</p>)}
-                        </Collapsible>
-                        <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p>
+                        <div className="menuContainer">
+                            {localStorage.getItem("admin") == "true" ? Upload : null}
+                            <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
+                            <div className="collapsibleDiv">
+                                <Collapsible trigger="PORTFOLIO" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
+                                    {catList.map((cat, index) => <p key = {index}>{cat}</p>)}
+                                </Collapsible>
+                            </div>
+                            <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p> 
+                        </div>
                     </div>
               </div>
         </Drawer>

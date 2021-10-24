@@ -55,10 +55,15 @@
   cursor: pointer;
 }
 
+
 .collapsible:hover {
   color: white;
 }
 
+
+.menuContainer {
+  float: left;
+}
 
 .swipeableIn {
   background-color: #111111;
@@ -83,7 +88,7 @@
   }
 
   .collapsible {
-    margin-left: -20px;
+    margin-left: -40px;
   }
 
   .collapsible:focus {
