@@ -123,6 +123,7 @@ export default function UploadImage(props){
                 name="filename" 
                 onChange = {previewImageHandler}
                 style = {{ display:"none"}}
+                disabled = {uploading}
         />
         <br /><br />
 
