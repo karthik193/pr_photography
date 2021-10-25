@@ -5,7 +5,7 @@ import { redirectHandler } from "../functions/helpers";
 import "../style/navbar.css";
 import Collapsible from 'react-collapsible';
 import {getFirestore,doc, getDoc} from 'firebase/firestore' ; 
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Drawer from '@material-ui/core/Drawer';
 
 
 
@@ -91,20 +91,25 @@ export default function Navbar(props){
                 open={sidebar}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
+
                 swipeAreaWidth = {winWidth*0.2}
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
                         <img className="logoImg2" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}} alt  = "Logo"  />
-                        {localStorage.getItem("admin") == "true" ? Upload : null}
-                        <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
-                        <Collapsible trigger="PORTFOLIO" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
-                            {catList.map((cat, index) => <p key = {index}>{cat}</p>)}
-                        </Collapsible>
-                        <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p>
+                        <div className="menuContainer">
+                            {localStorage.getItem("admin") == "true" ? Upload : null}
+                            <p onClick = {() => {redirectHandler(history , "/about")}}>ABOUT</p>
+                            <div className="collapsibleDiv">
+                                <Collapsible trigger="PORTFOLIO" className = "collapsible" onOpening = {() => {document.getElementById("sideNav").className = "sideNav collapse"}} onClose = {() => {document.getElementById("sideNav").className = "sideNav"}}>
+                                    {catList.map((cat, index) => <p key = {index}>{cat}</p>)}
+                                </Collapsible>
+                            </div>
+                            <p onClick = {() => {redirectHandler(history ,"/contact")}}>CONTACT</p> 
+                        </div>
                     </div>
               </div>
-        </SwipeableDrawer>
+        </Drawer>
     </div>
     </div>;
 }
