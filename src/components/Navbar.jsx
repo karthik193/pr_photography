@@ -17,6 +17,7 @@ export default function Navbar(props){
     const Upload  = <p onClick = {() => {redirectHandler(history , "/upload")}}>UPLOAD</p> ; 
     const [sidebar, setSidebar] = useState(false);  
     const auth  = getAuth() ; 
+    const winWidth = window.screen.availWidth ; 
     //var catList = [];
 
 
@@ -34,11 +35,11 @@ export default function Navbar(props){
     };
 
 
-const styles = {
-  BackdropProps: {
-    background: 'transparent'
-  }
-};
+    const styles = {
+        BackdropProps: {
+            background: 'transparent'
+        }
+    };
 
 
     useEffect(async ()=>{
@@ -84,13 +85,13 @@ const styles = {
         </div>
 
     <div className = "drawer">
-        <p onClick={toggleDrawer(true)} style = {{position: "fixed"}}><i className='fas fa-chevron-circle-right' style={{fontSize:"48px", marginLeft: "-10px"}}></i></p>
+        <p onClick={toggleDrawer(true)} id = "navbarToggleButton" style = {{position: "fixed"}}><i className='fas fa-chevron-circle-right' style={{fontSize:"48px", marginLeft: "-10px"}}></i></p>
         <SwipeableDrawer
                 anchor="left"
                 open={sidebar}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
-                swipeAreaWidth = {200}
+                swipeAreaWidth = {winWidth*0.2}
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
