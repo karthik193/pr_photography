@@ -14,6 +14,8 @@ export default function Login(props){
     if(localStorage.getItem("admin") == "true"){
         history.push("/upload") ; 
     }
+
+
     const verifyAdmin = async (email , password)=> {
 
         
@@ -23,8 +25,10 @@ export default function Login(props){
             // Signed in 
             const user = userCredential.user;
             console.log("Signed in as admin")
-            localStorage.setItem("admin" , true) ;
+            localStorage.setItem("admin" , "true") ; 
             history.push('/upload') ; 
+    
+            
             
         })
         .catch((error) => {
@@ -42,11 +46,7 @@ export default function Login(props){
     } ; 
 
 
-    onAuthStateChanged(auth , (user)=>{
-        if(user){
-            history.push("/upload") ; 
-        }
-    })
+    
     return(
            
         <div align = "center">

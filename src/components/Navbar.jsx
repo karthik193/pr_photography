@@ -17,6 +17,7 @@ export default function Navbar(props){
     const Upload  = <p onClick = {() => {redirectHandler(history , "/upload")}}>UPLOAD</p> ; 
     const [sidebar, setSidebar] = useState(false);  
     const auth  = getAuth() ; 
+    const winWidth = window.screen.availWidth ; 
     //var catList = [];
 
 
@@ -34,11 +35,11 @@ export default function Navbar(props){
     };
 
 
-const styles = {
-  BackdropProps: {
-    background: 'transparent'
-  }
-};
+    const styles = {
+        BackdropProps: {
+            background: 'transparent'
+        }
+    };
 
 
     useEffect(async ()=>{
@@ -54,18 +55,24 @@ const styles = {
         <img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
             
 
-        {localStorage.getItem("admin") == "true" ? <p style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed", zIndex: "200"}}
-            onClick = {
-                ()=>{
-                    localStorage.clear();
-                    auth.signOut() ; 
-                    setTimeout(() => {
-                        redirectHandler(history  , "/adminLogin");
-                    }, 200);
+        {localStorage.getItem("admin") == "true" ? 
+            <p 
+                style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed", zIndex: "200"}}
+                onClick = {
+                    ()=>{
+                        localStorage.clear();
+                        auth.signOut() ; 
+                        setTimeout(() => {
+                            redirectHandler(history  , "/adminLogin");
+                        }, 200);
+                    }
                 }
-            }
+            ><i class="fa fa-power-off powerOffBtn"></i></p>
+        : null 
+        }
+        
 
-        ><i class="fa fa-power-off" style={{fontSize: "32px", color: "whitesmoke"}}></i></p> : null}
+
         <div className="navbar">
             <div className = "sideNav" id = "sideNav">
                 {localStorage.getItem("admin") == "true" ? Upload : null}
@@ -78,12 +85,14 @@ const styles = {
         </div>
 
     <div className = "drawer">
-        <p onClick={toggleDrawer(true)} style = {{position: "fixed"}}><i className='fas fa-chevron-circle-right' style={{fontSize:"48px", marginLeft: "-10px"}}></i></p>
-        <Drawer
+        <p onClick={toggleDrawer(true)} id = "navbarToggleButton" style = {{position: "fixed"}}><i className='fas fa-chevron-circle-right' style={{fontSize:"48px", marginLeft: "-10px"}}></i></p>
+        <SwipeableDrawer
                 anchor="left"
                 open={sidebar}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
+
+                swipeAreaWidth = {winWidth*0.2}
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">
