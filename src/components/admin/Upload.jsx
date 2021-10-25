@@ -30,10 +30,12 @@ export default function UploadImage(props){
         setCatList(docSnap.data().categoryList);
     }, [catListFlag]);
 
-    if(localStorage.getItem("admin") != "true"){
-        return(
-            <Redirect to = "/adminLogin"></Redirect>
-        );
+
+    console.log(localStorage.getItem("admin"))    
+
+    
+    if(localStorage.getItem("admin")  == null ){
+        redirectHandler(history , "/adminLogin")
     }
     
 

@@ -53,8 +53,9 @@ const styles = {
     return  <div>
         <img className="logoImg" align = "left" src = {process.env.PUBLIC_URL + "/Images/logo.png"}  onClick = {() => {redirectHandler(history , "/")}}alt  = "Logo"  />
             
-
-        <p style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed"}}
+        {
+            localStorage.getItem("admin") == "true" ?
+            <p style = {{cursor: "pointer", right: "5%", top: "0", marginTop: "20px", position: "fixed"}}
             onClick = {
                 ()=>{
                     localStorage.clear();
@@ -65,6 +66,11 @@ const styles = {
                 }
             }
         ><i class="fa fa-power-off powerOffBtn"></i></p>
+        : null 
+        }
+        
+
+
         <div className="navbar">
             <div className = "sideNav" id = "sideNav">
                 {localStorage.getItem("admin") == "true" ? Upload : null}
