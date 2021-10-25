@@ -5,7 +5,7 @@ import { redirectHandler } from "../functions/helpers";
 import "../style/navbar.css";
 import Collapsible from 'react-collapsible';
 import {getFirestore,doc, getDoc} from 'firebase/firestore' ; 
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 
 
@@ -109,7 +109,7 @@ export default function Navbar(props){
                         </div>
                     </div>
               </div>
-        </Drawer>
+        </SwipeableDrawer>
     </div>
     </div>;
 }

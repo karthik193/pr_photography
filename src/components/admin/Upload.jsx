@@ -93,8 +93,11 @@ export default function UploadImage(props){
         await updateDoc(docRef, {
           categoryList: arrayUnion(document.getElementById("newCatInput").value)
         })        
-        alert("Added new cat");
+        catList.push(document.getElementById("newCatInput").value)
+        setCatList(catList);
+        setCatListFlag(!catListFlag);
         toggleModal();
+        alert("Added new cat");
     }
 
     
