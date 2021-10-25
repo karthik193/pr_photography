@@ -1,17 +1,27 @@
 import React , {useState  , useEffect} from "react" ; 
 import {getFirestore} from 'firebase/firestore' ; 
-import { doc, getDocs , collection , query } from "firebase/firestore";
+import { doc, getDocs , collection , query , deleteDoc  } from "firebase/firestore";
 import Modal from 'react-modal' ; 
 import './../style/imageGrid.css' ; 
+import { getStorage , ref , deleteObject } from "@firebase/storage";
+import { redirectHandler } from "../functions/helpers";
+import { useHistory } from "react-router";
 
 export default React.memo(function ImageGrid(props) {
     props.setShowNav(true);
+    const history   = useHistory(); 
     const windowSize  = window.screen.availWidth ; 
     const [images , setImages] = useState([]) ; 
     const [modalStatus , setModalStatus] = useState({
         modalOpen : false , 
         modalImage : ""
     }); 
+    const [deleteModalStatus , setDeleteModalStatus] = useState({
+        modalOpen : false , 
+        imageUrl : "", 
+        imageId : "", 
+        deleteStart : false
+    });
 //data retreving from firebase
     useEffect(() =>{
         async function getImages(){
@@ -60,6 +70,56 @@ export default React.memo(function ImageGrid(props) {
             )
         }); 
     }
+    const deleteModalHandler  = (open , imageUrl , imageId)=>{
+        setDeleteModalStatus ((prev)=>{
+            return(
+                {
+                    ...prev , 
+                    "modalOpen": open , 
+                    "imageUrl" : imageUrl,
+                    "imageId" : imageId
+                }
+            );
+        });
+    }
+    const deleteImageHandler  = async (imageId) =>{
+        
+        const db  = getFirestore() ; 
+        const storage = getStorage(); 
+        const ImageRef  = ref(storage , "images/" + imageId) ; 
+
+        setDeleteModalStatus(prev=>{
+            return(
+                {
+                    ...prev, 
+                    deleteStart : true,
+                }
+            )
+        })
+        await deleteDoc(doc(db , "image_meta_data"  , imageId)).then( async ()=>{
+            
+            await deleteObject(ImageRef).then(()=>{
+                alert("Image Deleted");
+                history.go(0);
+                deleteModalHandler(false , "" , "" );
+            }).catch(err=>{
+                alert("error in deleting the Image")
+                console.log("revert the Delete changes of the Doc into the Images_meta_data") ; 
+            })
+            
+        }
+            
+        ).catch((err)=>alert("failed to delete the Image")); 
+        setDeleteModalStatus(prev=>{
+            return(
+                {
+                    ...prev, 
+                    deleteStart : false,
+                }
+            )
+        })
+
+    }
     const ModalStyle  = {
         content:{
             backgroundColor: "rgba(0 , 0 , 0 , 0.8)", 
@@ -75,6 +135,26 @@ export default React.memo(function ImageGrid(props) {
             backgroundColor:"rgba(0 , 0 , 0 , 0.7)"
         }
     };
+    const DeleteModalStyle = {
+        content :{ 
+            top: "50%",
+            left: "50%",
+            bottom: "auto",
+            right: "auto",
+            background: "#252525",
+            letterSpacing: "2px",
+            transform: 'translate(-50%, -50%)',
+            border : "none" , 
+            transition : "1s ease",
+            minWidth : "250px", 
+            maxWidth :"350px" , 
+            textAlign : "center"
+            
+        }, 
+        overlay:{
+            backgroundColor:"rgba(0 , 0 , 0 , 0.7)"
+        }
+    }
     return (
         <div  className  = "row" align = "center">
             <Modal  
@@ -91,6 +171,46 @@ export default React.memo(function ImageGrid(props) {
                 }}>
                     <i className =  "fas fa-close" ></i>
                 </button>
+            </Modal>
+            <Modal
+                style  = {DeleteModalStyle}
+                isOpen  = {deleteModalStatus.modalOpen}
+                contentLabel = "Delete Pop Up"
+                closeTimeoutMS = {500}
+                onRequestClose = {()=> deleteModalHandler(false , "")}
+            >
+                {deleteModalStatus.deleteStart?
+                <div>Deleting Image...</div>
+                :
+                <div>
+                    <h3>Do you really want to Delete the Image Below ?</h3>
+                    <img 
+                        className  = "deleteImage"
+                        src  = {deleteModalStatus.imageUrl}
+                    ></img>
+                    <br/>
+                    <div
+                        style  = {
+                            {
+                                display : "inline-flex" , 
+                                justifyContent : "space-between", 
+                                width : "100%"
+                            }
+                        }
+                    >
+                        <button     
+                            className  = "deleteModalBtn" 
+                            onClick = {()=>deleteModalHandler(false , "")}
+                        >NO</button>
+                        <button 
+                            className  = "deleteModalBtn" 
+                            onClick = {()=>{ deleteImageHandler(deleteModalStatus.imageId) }}
+                        >YES</button>
+                    </div>
+                </div>
+                }
+                
+                
             </Modal>
                 {
                     images.map((colImages , colIndex) =>{
@@ -146,6 +266,9 @@ export default React.memo(function ImageGrid(props) {
                                                     localStorage.getItem("admin") == "true" && windowSize >= 992?
                                                     <button
                                                         className = "gridDeleteBtn"
+                                                        onClick = {()=>{
+                                                            deleteModalHandler(true , doc.url , doc.id); 
+                                                        }}
                                                     >
                                                         DELETE
                                                     </button>
