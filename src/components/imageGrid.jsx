@@ -1,6 +1,6 @@
 import React , {useState  , useEffect} from "react" ; 
 import {getFirestore} from 'firebase/firestore' ; 
-import { doc, getDocs , collection , query , deleteDoc  } from "firebase/firestore";
+import { doc, getDocs , collection , query , deleteDoc ,limit , startAfter , orderBy } from "firebase/firestore";
 import Modal from 'react-modal' ; 
 import './../style/imageGrid.css' ; 
 import { getStorage , ref , deleteObject } from "@firebase/storage";
@@ -22,15 +22,66 @@ export default React.memo(function ImageGrid(props) {
         imageId : "", 
         deleteStart : false
     });
-//data retreving from firebase
+    const [shouldLoad , setShouldLoad]  = useState(0); 
+    var lastVisibleDoc  = null ; 
+    const db  = getFirestore() ; 
+    const imageCollection  = collection(db  , "image_meta_data") ;
+    var colno = 0 ;
+    window.addEventListener("scroll" , async (event)=>{
+        let documentHeight  = document.body.scrollHeight  ; 
+        let currentScroll   = window.scrollY  + window.innerHeight  ; 
+        let modifer = 50 ; 
+        if(currentScroll + modifer  > documentHeight && lastVisibleDoc != null){
+            //get 9 Images from firestore 
+            const nextDocs  = query(
+                                imageCollection , 
+                                orderBy("date") , 
+                                startAfter(lastVisibleDoc),
+                                limit(9));
+            const documentSnapshots  = await getDocs(nextDocs) ; 
+            lastVisibleDoc  = documentSnapshots.docs[documentSnapshots.docs.length-1] ;
+            
+            var arr  = [[],[],[]] ; 
+             
+
+            console.log(nextDocs  , "checking nextDocs" )
+            nextDocs.forEach((doc)=>{
+                if(doc.data().default == null){
+                    arr[(colno)].push({
+                        ...doc.data(),
+                        id : doc.id  
+                    }) ;
+                    colno = (colno+1)%3 ;
+                }
+                  
+            });
+
+            setImages(prev =>{
+                return(
+                    [
+                        [...prev[0] , ...arr[0]],
+                        [...prev[1] , ...arr[1]],
+                        [...prev[2] , ...arr[2]]
+                    ]
+                )
+            })
+
+        }
+    })
+    //data retreving from firebase
     useEffect(() =>{
         async function getImages(){
-            const db = getFirestore();
-            const q = query(collection(db , "image_meta_data")) ; 
+
+            const first  = query(imageCollection  , orderBy("date") , limit(9) );
+            const documentSnapshots  = await getDocs(first) ; 
+            lastVisibleDoc  = documentSnapshots.docs[documentSnapshots.docs.length-1] ;
+
     
-            const qs  = await getDocs(q) ; 
+            const qs  = await getDocs(first) ; 
             var arr  = [[],[],[]] ; 
-            var colno = 0 ; 
+
+
+            console.log(qs , "qs" ) ; 
             qs.forEach((doc)=>{
                 if(doc.data().default == null){
                     arr[(colno)].push({
@@ -235,6 +286,7 @@ export default React.memo(function ImageGrid(props) {
                                                 key = {index}
                                                 src = {doc.url} 
                                                 alt  = {doc.alt}
+                                                loading = "lazy"
                                             ></img>
                                             <div
                                                 id  = {doc.id}
@@ -287,6 +339,7 @@ export default React.memo(function ImageGrid(props) {
                         )
                     })
                 }
+                <p>{shouldLoad}</p>
                 
         </div>
     );
