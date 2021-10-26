@@ -1,4 +1,4 @@
-import React , {useState  , useEffect} from "react" ; 
+import React , {useState  , useEffect, useContext} from "react" ; 
 import {getFirestore} from 'firebase/firestore' ; 
 import { doc, getDocs , collection , query , deleteDoc ,limit , startAfter , orderBy } from "firebase/firestore";
 import Modal from 'react-modal' ; 
@@ -6,6 +6,7 @@ import './../style/imageGrid.css' ;
 import { getStorage , ref , deleteObject } from "@firebase/storage";
 import { redirectHandler } from "../functions/helpers";
 import { useHistory } from "react-router";
+import { CategoryContext } from "../App";
 
 export default React.memo(function ImageGrid(props) {
     props.setShowNav(true);
@@ -68,19 +69,22 @@ export default React.memo(function ImageGrid(props) {
 
         }
     })
+
+             
+
+    const {category, setCategory} = useContext(CategoryContext);
+    console.log("ImgGrid: "+category);
+
     //data retreving from firebase
     useEffect(() =>{
         async function getImages(){
-
             const first  = query(imageCollection  , orderBy("date") , limit(9) );
             const documentSnapshots  = await getDocs(first) ; 
             lastVisibleDoc  = documentSnapshots.docs[documentSnapshots.docs.length-1] ;
 
     
-            const qs  = await getDocs(first) ; 
-            var arr  = [[],[],[]] ; 
-
-
+            const qs  = await getDocs(first) ;
+            var arr  = [[],[],[]] ;
             console.log(qs , "qs" ) ; 
             qs.forEach((doc)=>{
                 if(doc.data().default == null){
@@ -96,7 +100,7 @@ export default React.memo(function ImageGrid(props) {
             setImages(arr) ; 
         }
         getImages(); 
-    }, []);
+    }, [category]);
 
     const mouseOverHandler  = (expandIconId)=>{
          const expandIconElement  = document.getElementById(expandIconId) ; 
@@ -278,13 +282,13 @@ export default React.memo(function ImageGrid(props) {
                                             onClick ={()=>{
                                                 
                                                 if(window.screen.availWidth < 992)
-                                                imageModalHandler(doc.url )
+                                                imageModalHandler(doc.compressedUrl )
                                             }}
                                         >
                                             <img  
                                                 className  = "gridImage" 
                                                 key = {index}
-                                                src = {doc.url} 
+                                                src = {doc.compressedUrl} 
                                                 alt  = {doc.alt}
                                                 loading = "lazy"
                                             ></img>
