@@ -1,11 +1,10 @@
-
 .sideNav {
-    height: 200px;
-    width: 15%;
-    background-color: black;
-    text-align: center;
-    position: fixed;
-    transition: 0.2s ease;
+  height: 200px;
+  width: 15%;
+  background-color: black;
+  text-align: center;
+  position: fixed;
+  transition: 0.2s ease;
 }
 
 .collapse {
@@ -14,7 +13,7 @@
   transition: 0.2s ease;
   cursor: pointer;
 }
-  
+
 .sideNav p {
   color: #9f9f9f;
   padding: 8px;
@@ -24,29 +23,28 @@
   transition: 0.3s ease;
   cursor: pointer;
   letter-spacing: 6px;
-  user-select: none; 
+  user-select: none;
 }
 
-.sideNav p:hover{
+.sideNav p:hover {
   color: white;
 }
 
 .logoImg {
-    margin-top: -450px;
-    margin-left: 5px;
-    height: 80px;
-    width: auto;
-    cursor: pointer;
-    position: fixed;
-
+  margin-top: -450px;
+  margin-left: 5px;
+  height: 80px;
+  width: auto;
+  cursor: pointer;
+  position: fixed;
 }
 
 .logoImg2 {
-    margin-top: 5px;
-    margin-left: 5px;
-    height: 60px;
-    width: auto;
-    cursor: pointer;
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 60px;
+  width: auto;
+  cursor: pointer;
 }
 
 .collapsible {
@@ -55,11 +53,9 @@
   cursor: pointer;
 }
 
-
 .collapsible:hover {
   color: white;
 }
-
 
 .menuContainer {
   float: left;
@@ -75,15 +71,13 @@
   visibility: hidden;
 }
 
-
 @media (max-width: 768px) {
-
   .sideNav {
     width: 200px;
     background-color: unset;
   }
 
-  .sideNav p{
+  .sideNav p {
     float: left;
   }
 
@@ -91,8 +85,12 @@
     margin-left: -40px;
   }
 
+  .Collapsible__trigger:hover {
+    color: aliceblue;
+  }
+
   .collapsible:focus {
-    color:  white;
+    color: white;
   }
   .navbar {
     visibility: hidden;
@@ -103,12 +101,12 @@
   }
 }
 
-.powerOffBtn{
+.powerOffBtn {
   font-size: 2em;
-  color : whitesmoke ; 
+  color: whitesmoke;
 }
-.powerOffBtn:hover { 
-  transition-duration: .7s;
+.powerOffBtn:hover {
+  transition-duration: 0.7s;
   text-shadow: 0em 0em 1em rgb(255, 77, 77);
-  color : rgb(255, 43, 43) ; 
+  color: rgb(255, 43, 43);
 }
