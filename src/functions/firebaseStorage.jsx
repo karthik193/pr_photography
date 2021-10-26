@@ -17,15 +17,15 @@ export default function uplaodFile(file, altText, category, setUploading) {
 
 		getDownloadURL(imageRef).then(async (url)=>{
 			try {
-				await setDoc(doc(db, "image_meta_data", `${timestamp}`), {
-					alt_text: altText,
-					category: category,
-					date: new Date().toLocaleDateString(),
-					filename: timestamp, 
-					url : url
-				});
-	
-				console.log("Document written with ID: ", timestamp);
+					await setDoc(doc(db, "image_meta_data", `${timestamp}`), {
+						alt_text: altText,
+						category: category,
+						date: new Date().toLocaleDateString(),
+						filename: timestamp, 
+						url : url
+					});
+					
+					console.log("Document written with ID: ", timestamp);
 	
 				} 
 				catch (e) {
@@ -60,16 +60,16 @@ export default function uplaodFile(file, altText, category, setUploading) {
 							compressedUrl: compressedUrl
 						});
 			
-						console.log("Updated compressedUrl for ID: ", timestamp);
+					console.log("Updated compressedUrl for ID: ", timestamp);
 			
-						} 
-						catch (e) {
-							console.error("Error updating compressedUrl: ", e);
-						}
-						setUploading(false);
-						console.log('Uploaded a blob or file!');
-						alert("Uploaded"); 
-						window.location.reload();
+					} 
+					catch (e) {
+						console.error("Error updating compressedUrl: ", e);
+					}
+					setUploading(false);
+					console.log('Uploaded a blob or file!');
+					alert("Uploaded"); 
+					window.location.reload();
 
 
 				}).catch( (err)=>{
