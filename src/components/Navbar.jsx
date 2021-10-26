@@ -109,7 +109,7 @@ export default function Navbar(props){
                         </div>
                     </div>
               </div>
-        </Drawer>
+        </SwipeableDrawer>
     </div>
     </div>;
 }
