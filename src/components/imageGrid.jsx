@@ -45,8 +45,8 @@ export default React.memo(function ImageGrid(props) {
             var arr  = [[],[],[]] ; 
              
 
-            console.log(nextDocs  , "checking nextDocs" )
-            nextDocs.forEach((doc)=>{
+            
+            documentSnapshots.forEach((doc)=>{
                 if(doc.data().default == null){
                     arr[(colno)].push({
                         ...doc.data(),
@@ -142,6 +142,7 @@ export default React.memo(function ImageGrid(props) {
         const db  = getFirestore() ; 
         const storage = getStorage(); 
         const ImageRef  = ref(storage , "images/" + imageId) ; 
+        const compressedImageRef = ref(storage , "compressedImages/" + imageId) ; 
 
         setDeleteModalStatus(prev=>{
             return(
@@ -153,10 +154,14 @@ export default React.memo(function ImageGrid(props) {
         })
         await deleteDoc(doc(db , "image_meta_data"  , imageId)).then( async ()=>{
             
-            await deleteObject(ImageRef).then(()=>{
-                alert("Image Deleted");
-                history.go(0);
-                deleteModalHandler(false , "" , "" );
+            await deleteObject(ImageRef).then(async ()=>{
+
+                await deleteObject(compressedImageRef).then(()=>{
+                    alert("Image Deleted");
+                    history.go(0);
+                    deleteModalHandler(false , "" , "" );
+                }).catch(err => alert("Unable to Delete the Image"))
+                
             }).catch(err=>{
                 alert("error in deleting the Image")
                 console.log("revert the Delete changes of the Doc into the Images_meta_data") ; 
@@ -343,8 +348,7 @@ export default React.memo(function ImageGrid(props) {
                         )
                     })
                 }
-                
-                
+                    
         </div>
     );
 })

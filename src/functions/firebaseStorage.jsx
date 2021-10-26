@@ -25,6 +25,45 @@ export default function uplaodFile(file, altText, category, setUploading) {
 						url : url
 					});
 					
+
+
+					new Compressor(file, {
+						quality: 0.5, 
+						success: (compressedResult) => {
+						  // compressedResult has the compressed file.
+						  // Use the compressed file to upload the images to your server.        
+						  const copmpressedImageRef = ref(storage, 'compressedImages/'+timestamp);
+							
+							// Uploading compressed
+							uploadBytes(copmpressedImageRef, compressedResult).then((snapshot) => {
+				
+								getDownloadURL(copmpressedImageRef).then(async (compressedUrl)=>{
+									try {
+										await updateDoc(doc(db, "image_meta_data", `${timestamp}`), {
+											compressedUrl: compressedUrl
+										});
+							
+									console.log("Updated compressedUrl for ID: ", timestamp);
+							
+									} 
+									catch (e) {
+										console.error("Error updating compressedUrl: ", e);
+									}
+									setUploading(false);
+									console.log('Uploaded a blob or file!');
+									alert("Uploaded"); 
+									window.location.reload();
+				
+				
+								}).catch( (err)=>{
+									alert("fail to dowload URL");
+								})
+								
+				
+								
+							});
+						},
+					});
 					console.log("Document written with ID: ", timestamp);
 	
 				} 
@@ -44,43 +83,7 @@ export default function uplaodFile(file, altText, category, setUploading) {
 	});
 
 
-	new Compressor(file, {
-		quality: 0.01, 
-		success: (compressedResult) => {
-		  // compressedResult has the compressed file.
-		  // Use the compressed file to upload the images to your server.        
-		  const copmpressedImageRef = ref(storage, 'compressedImages/'+timestamp);
-			
-			// Uploading compressed
-			uploadBytes(copmpressedImageRef, compressedResult).then((snapshot) => {
-
-				getDownloadURL(copmpressedImageRef).then(async (compressedUrl)=>{
-					try {
-						await updateDoc(doc(db, "image_meta_data", `${timestamp}`), {
-							compressedUrl: compressedUrl
-						});
-			
-					console.log("Updated compressedUrl for ID: ", timestamp);
-			
-					} 
-					catch (e) {
-						console.error("Error updating compressedUrl: ", e);
-					}
-					setUploading(false);
-					console.log('Uploaded a blob or file!');
-					alert("Uploaded"); 
-					window.location.reload();
-
-
-				}).catch( (err)=>{
-					alert("fail to dowload URL");
-				})
-				
-
-				
-			});
-		},
-	});
+	
 	
 
 }
