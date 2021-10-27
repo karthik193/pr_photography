@@ -21,9 +21,7 @@
     transition: 0.2s ease;
 }
 
-.gridImage:hover{
-    opacity: 25%;
-}
+
 
 .modalImage{
     
@@ -73,6 +71,9 @@
         position: relative;
         text-align: center;
         color: white;
+}
+.imageBox:hover  .gridImage{
+    opacity: 25%;
 }
 .centered {
     position: absolute;

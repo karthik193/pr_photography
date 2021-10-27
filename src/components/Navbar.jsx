@@ -100,7 +100,6 @@ export default function Navbar(props){
                 open={sidebar}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
-
                           >
               <div className="swipeableIn">
                     <div className = "sideNav" id = "sideNav">

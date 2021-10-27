@@ -1,4 +1,4 @@
-import React , {useState  , useEffect, useContext} from "react" ; 
+import React , {useState  , useEffect, useContext, Suspense} from "react" ; 
 import {getFirestore} from 'firebase/firestore' ; 
 import { doc, getDocs , collection , query , deleteDoc ,limit , startAfter , orderBy } from "firebase/firestore";
 import Modal from 'react-modal' ; 
@@ -7,7 +7,7 @@ import { getStorage , ref , deleteObject } from "@firebase/storage";
 import { redirectHandler } from "../functions/helpers";
 import { useHistory } from "react-router";
 import { CategoryContext } from "../App";
-
+import info from '../dataReference/info'  ; 
 export default React.memo(function ImageGrid(props) {
     props.setShowNav(true);
     const history   = useHistory(); 
@@ -24,28 +24,28 @@ export default React.memo(function ImageGrid(props) {
         deleteStart : false
     });
     const [shouldLoad , setShouldLoad]  = useState(0); 
-    var lastVisibleDoc  = null ; 
+    const [lastVisibleDoc , setLVD] = useState(null) ; 
+    console.log(lastVisibleDoc , "last DOC render");
     const db  = getFirestore() ; 
     const imageCollection  = collection(db  , "image_meta_data") ;
     var colno = 0 ;
-    window.addEventListener("scroll" , async (event)=>{
-        let documentHeight  = document.body.scrollHeight  ; 
-        let currentScroll   = window.scrollY  + window.innerHeight  ; 
-        let modifer = 50 ; 
-        if(currentScroll + modifer  > documentHeight && lastVisibleDoc != null){
+    const LoadNextImages  = async ()=>{
+
+        console.log("last doc" , lastVisibleDoc);
+        if(lastVisibleDoc){
             //get 9 Images from firestore 
             const nextDocs  = query(
                                 imageCollection , 
                                 orderBy("date") , 
                                 startAfter(lastVisibleDoc),
-                                limit(9));
+                                limit(info.load_limit));
             const documentSnapshots  = await getDocs(nextDocs) ; 
-            lastVisibleDoc  = documentSnapshots.docs[documentSnapshots.docs.length-1] ;
+            setLVD(documentSnapshots.docs[documentSnapshots.docs.length-1]) ;
             
             var arr  = [[],[],[]] ; 
              
 
-            
+            console.log("Updating the array ")
             documentSnapshots.forEach((doc)=>{
                 if(doc.data().default == null){
                     arr[(colno)].push({
@@ -74,24 +74,20 @@ export default React.memo(function ImageGrid(props) {
             })
 
         }
-    })
-
-             
-
-    const {category, setCategory} = useContext(CategoryContext);
-    console.log("ImgGrid: "+category);
+    }
+    
 
     //data retreving from firebase
     useEffect(() =>{
         async function getImages(){
-            const first  = query(imageCollection  , orderBy("date") , limit(9) );
+            const first  = query(imageCollection  , orderBy("date") , limit(info.load_limit) );
             const documentSnapshots  = await getDocs(first) ; 
-            lastVisibleDoc  = documentSnapshots.docs[documentSnapshots.docs.length-1] ;
+            setLVD(documentSnapshots.docs[documentSnapshots.docs.length-1]);
 
-    
+            console.log(lastVisibleDoc  , "DEfined")
             const qs  = await getDocs(first) ;
-            var arr  = [[],[],[]] ;
-            console.log(qs , "qs" ) ; 
+            let arr  = [[],[],[]] ;
+         
             qs.forEach((doc)=>{
                 if(doc.data().default == null){
                     arr[(colno)].push({
@@ -102,11 +98,10 @@ export default React.memo(function ImageGrid(props) {
                 }
                   
             });
-            arr.forEach((a)=> a.reverse())
             setImages(arr) ; 
         }
         getImages(); 
-    }, [category]);
+    }, []);
 
     const mouseOverHandler  = (expandIconId)=>{
          const expandIconElement  = document.getElementById(expandIconId) ; 
@@ -223,138 +218,149 @@ export default React.memo(function ImageGrid(props) {
     }
     return (
         <div  className  = "row" align = "center">
-            <Modal  
-                style = {ModalStyle}
-                isOpen = {modalStatus.modalOpen}
-                contentLabel  = "Image Opener"
-                closeTimeoutMS = {500}
-                onRequestClose = {()=>imageModalHandler("")}
-            >
-
-                <img className  = "modalImage" src = {modalStatus.modalImage}></img>
-                <button className = "modalCloseButton" onClick ={()=>{
-                    imageModalHandler("")
-                }}>
-                    <i className =  "fas fa-close" ></i>
-                </button>
-            </Modal>
-            <Modal
-                style  = {DeleteModalStyle}
-                isOpen  = {deleteModalStatus.modalOpen}
-                contentLabel = "Delete Pop Up"
-                closeTimeoutMS = {500}
-                onRequestClose = {()=> deleteModalHandler(false , "")}
-            >
-                {deleteModalStatus.deleteStart?
-                <div>Deleting Image...</div>
-                :
-                <div>
-                    <h3>Do you really want to Delete the Image Below ?</h3>
-                    <img 
-                        className  = "deleteImage"
-                        src  = {deleteModalStatus.imageUrl}
-                    ></img>
-                    <br/>
-                    <div
-                        style  = {
-                            {
-                                display : "inline-flex" , 
-                                justifyContent : "space-between", 
-                                width : "100%"
-                            }
-                        }
-                    >
-                        <button     
-                            className  = "deleteModalBtn" 
-                            onClick = {()=>deleteModalHandler(false , "")}
-                        >NO</button>
-                        <button 
-                            className  = "deleteModalBtn" 
-                            onClick = {()=>{ deleteImageHandler(deleteModalStatus.imageId) }}
-                        >YES</button>
-                    </div>
-                </div>
+            <div
+                style  = {
+                    {
+                        height : "max-content"
+                    }
                 }
-                
-                
-            </Modal>
-                {
-                    images.map((colImages , colIndex) =>{
-                        return(
-                            <div className = "col" key = {colIndex}>
-                                {colImages.map((doc  , index)=>{
+            >
+                <Modal  
+                    style = {ModalStyle}
+                    isOpen = {modalStatus.modalOpen}
+                    contentLabel  = "Image Opener"
+                    closeTimeoutMS = {500}
+                    onRequestClose = {()=>imageModalHandler("")}
+                >
 
-                                    
-                                    return(
-                                        <div 
-                                            className = "imageBox"
-                                            onMouseEnter = {()=>{mouseOverHandler(doc.id);}}
-                                            onMouseLeave = {()=>{mouseOverHandler(doc.id);}}
-                                            onClick ={()=>{
-                                                
-                                                if(window.screen.availWidth < 992)
-                                                imageModalHandler(doc.url )
-                                            }}
-                                        >
-                                            <img  
-                                                className  = "gridImage" 
-                                                key = {index}
-                                                src = {doc.compressedUrl} 
-                                                alt  = {doc.alt}
-                                                loading = "lazy"
-                                            ></img>
-                                            <div
-                                                id  = {doc.id}
-                                                className = "centered  noDisplay"
-                                                style ={
-                                                    {
-                                                        display :"inline-flex" ,
-                                                        justifyContent:"space-around", 
-                                                        width : "80%", 
-                                                        
-                                                    }
-                                                }
-                                            >
-                                                <div 
+                    <img className  = "modalImage" src = {modalStatus.modalImage}></img>
+                    <button className = "modalCloseButton" onClick ={()=>{
+                        imageModalHandler("")
+                    }}>
+                        <i className =  "fas fa-close" ></i>
+                    </button>
+                </Modal>
+                <Modal
+                    style  = {DeleteModalStyle}
+                    isOpen  = {deleteModalStatus.modalOpen}
+                    contentLabel = "Delete Pop Up"
+                    closeTimeoutMS = {500}
+                    onRequestClose = {()=> deleteModalHandler(false , "")}
+                >
+                    {deleteModalStatus.deleteStart?
+                    <div>Deleting Image...</div>
+                    :
+                    <div>
+                        <h3>Do you really want to Delete the Image Below ?</h3>
+                        <img 
+                            className  = "deleteImage"
+                            src  = {deleteModalStatus.imageUrl}
+                        ></img>
+                        <br/>
+                        <div
+                            style  = {
+                                {
+                                    display : "inline-flex" , 
+                                    justifyContent : "space-between", 
+                                    width : "100%"
+                                }
+                            }
+                        >
+                            <button     
+                                className  = "deleteModalBtn" 
+                                onClick = {()=>deleteModalHandler(false , "")}
+                            >NO</button>
+                            <button 
+                                className  = "deleteModalBtn" 
+                                onClick = {()=>{ deleteImageHandler(deleteModalStatus.imageId) }}
+                            >YES</button>
+                        </div>
+                    </div>
+                    }
+                    
+                    
+                </Modal>
+                <Suspense   fallback  = { <div>Loading...</div>}>
+                
+                    {
+                        images.map((colImages , colIndex) =>{
+                            return(
+                                <div className = "col" key = {colIndex}>
+                                    {colImages.map((doc  , index)=>{
+
+                                        
+                                        return(
+                                            <div 
+                                                className = "imageBox"
+                                                onMouseEnter = {()=>{mouseOverHandler(doc.id);}}
+                                                onMouseLeave = {()=>{mouseOverHandler(doc.id);}}
+                                                onClick ={()=>{
                                                     
-                                                    style = {
+                                                    if(window.screen.availWidth < 992)
+                                                    imageModalHandler(doc.url)
+                                                }}
+                                            >
+                                                <img  
+                                                    className  = "gridImage" 
+                                                    key = {index}
+                                                    src = {doc.compressedUrl} 
+                                                    alt  = {doc.alt}
+                                                    loading = "lazy"
+                                                ></img>
+                                                <div
+                                                    id  = {doc.id}
+                                                    className = "centered  noDisplay"
+                                                    style ={
                                                         {
-                                                            padding : "0em"
+                                                            display :"inline-flex" ,
+                                                            justifyContent:"space-around", 
+                                                            width : "80%", 
+                                                            
                                                         }
                                                     }
-                                                    onClick ={()=>imageModalHandler(doc.url )}
-                                                    
                                                 >
-                                                    <i className  = "fas fa-expand expandIcon"  
-                                                    
-                                                    ></i>
-                                                </div>
-                                                {
-                                                    localStorage.getItem("admin") == "true" && windowSize >= 992?
-                                                    <button
-                                                        className = "gridDeleteBtn"
-                                                        onClick = {()=>{
-                                                            deleteModalHandler(true , doc.url , doc.id); 
-                                                        }}
+                                                    <div 
+                                                        
+                                                        style = {
+                                                            {
+                                                                padding : "0em"
+                                                            }
+                                                        }
+                                                        onClick ={()=>imageModalHandler(doc.url )}
+                                                        
                                                     >
-                                                        DELETE
-                                                    </button>
-                                                    :null
-                                                }
+                                                        <i className  = "fas fa-expand expandIcon"  
+                                                        
+                                                        ></i>
+                                                    </div>
+                                                    {
+                                                        localStorage.getItem("admin") == "true" && windowSize >= 992?
+                                                        <button
+                                                            className = "gridDeleteBtn"
+                                                            onClick = {()=>{
+                                                                deleteModalHandler(true , doc.url , doc.id); 
+                                                            }}
+                                                        >
+                                                            DELETE
+                                                        </button>
+                                                        :null
+                                                    }
+                                                    
+                                                </div>
                                                 
                                             </div>
                                             
-                                        </div>
+                                            
+                                        )
                                         
-                                        
-                                    )
-                                    
-                                })}
-                            </div>
-                        )
-                    })
-                }
-                    
+                                    })}
+                                </div>
+                            )
+                        })
+                    }
+                </Suspense>          
+            </div>
+            {lastVisibleDoc ?<button onClick  = {LoadNextImages}> Load More Images</button>: <p>NO MORE IMAGES TO LOAD</p>}
         </div>
     );
 })
