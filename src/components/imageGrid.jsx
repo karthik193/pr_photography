@@ -57,7 +57,13 @@ export default React.memo(function ImageGrid(props) {
                   
             });
 
+            
             setImages(prev =>{
+                console.log([
+                    [...prev[0] , ...arr[0]],
+                    [...prev[1] , ...arr[1]],
+                    [...prev[2] , ...arr[2]]
+                ]); 
                 return(
                     [
                         [...prev[0] , ...arr[0]],
@@ -287,7 +293,7 @@ export default React.memo(function ImageGrid(props) {
                                             onClick ={()=>{
                                                 
                                                 if(window.screen.availWidth < 992)
-                                                imageModalHandler(doc.compressedUrl )
+                                                imageModalHandler(doc.url )
                                             }}
                                         >
                                             <img  
