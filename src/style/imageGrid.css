@@ -13,7 +13,20 @@
     
 }
 
+.loadMore {
+    float:  right;
+    width: 100%;
+}
 
+.loadMore button{
+    background-color: transparent;
+    color : white ; 
+    letter-spacing: 4px;
+    padding: 1em;
+}
+.loadMore button:hover {
+
+}
 .gridImage {
     width: 100%; 
     height: auto;

@@ -217,8 +217,9 @@ export default React.memo(function ImageGrid(props) {
         }
     }
     return (
-        <div  className  = "row" align = "center">
+        <div align = "center">
             <div
+                className  = "row" align = "center"
                 style  = {
                     {
                         height : "max-content"
@@ -360,7 +361,9 @@ export default React.memo(function ImageGrid(props) {
                     }
                 </Suspense>          
             </div>
-            {lastVisibleDoc ?<button onClick  = {LoadNextImages}> Load More Images</button>: <p>NO MORE IMAGES TO LOAD</p>}
+            <div className  = "loadMore" >
+                {lastVisibleDoc ?<button onClick  = {LoadNextImages}> Load More Images</button>: <p>NO MORE IMAGES TO LOAD</p>}
+            </div>
         </div>
     );
 })
