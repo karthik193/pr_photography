@@ -9,13 +9,17 @@
 
 .contactBox {
     /* border : .1em solid white  ; */
+    display: flex;
     width: fit-content; 
 }
 
 .reachOutBox{
-    display  : flex ; 
+    display: flex ; 
     justify-content:  space-around;
-    width: 50%;
+    width: 100%;
+}
+.reachOutBox button{
+    float : left ; 
 }
 .whatsAppBtn , .instaBtn , .phoneBtn  , .facebookBtn{
     border : none ; 
