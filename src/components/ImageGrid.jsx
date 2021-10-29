@@ -281,7 +281,7 @@ export default React.memo(function ImageGrid(props) {
                     
                     
                 </Modal>
-                <Suspense   fallback  = { <div>Loading...</div>}>
+                <Suspense   fallback  = { <div>Loading...</div> }>
                 
                     {
                         images.map((colImages , colIndex) =>{
