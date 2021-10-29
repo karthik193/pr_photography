@@ -9,18 +9,11 @@
 
 .contactBox {
     /* border : .1em solid white  ; */
-    display: flex;
-    width: fit-content; 
+    width : 70% ; 
+    margin-bottom:  2em ; 
 }
 
-.reachOutBox{
-    display: flex ; 
-    justify-content:  space-around;
-    width: 100%;
-}
-.reachOutBox button{
-    float : left ; 
-}
+
 .whatsAppBtn , .instaBtn , .phoneBtn  , .facebookBtn{
     border : none ; 
     outline : none ; 
@@ -53,38 +46,14 @@
     transition: .5s ease;
 }
 
-.facebookBtn .whiteBg{
-    
-    color : white ; 
-    background-color : transparent ; 
-    left: .5em;
-    top: 4px; 
-    width: .5em;
-    height: 70%;
-    border-radius: .5em;
-    position: absolute;
-     
-}
-.facebookBtn i {
-    top : 0 ; 
-    position: absolute;
-    z-index: 1 ; 
-}
-.facebookBtn {
-   position: relative; 
-   top : 1px ; 
-}
 .facebookBtn:hover{
    
     color : #4267B2 ; 
     transition : .5s ease ; 
 }
-.facebookBtn:hover .whiteBg{
-   
-    background-color: white; 
-}
+
 tr , td {
-    padding : .5em ; 
-    background-color: rgb(39, 39, 39);
+    padding : .6em ; 
+    background-color: rgb(17, 17, 17);
 }
 

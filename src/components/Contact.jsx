@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core";
 export default function Contact(props) {
     props.setShowNav(true);
     const todaysDate  = new Date() ; 
+ 
     return (
         <div className  = "contact" >
             <h3>CONTACT</h3>
@@ -20,17 +21,16 @@ export default function Contact(props) {
                             <td>{todaysDate.getFullYear() - info.admin.age}</td>
                         </tr>
                         <tr>
-                            <td>Address</td>
-                            <td>{info.admin.address}</td>
-                        </tr>
-                        <tr>
                             <td>Contact</td>
                             <td>
+                               
                                 <div className  = "reachOutBox" >
+                                    
                                     <button className  = "whatsAppBtn" 
                                         onClick = {()=>{
-                                            navigator.clipboard.writeText(info.admin.contact.whatsApp) ; 
-                                            alert("Copied whatsApp number to Clipboard");
+
+                                            let website_name  = "*[" + info.admin.site + "]*" ; 
+                                            window.open(`https://wa.me/${info.admin.contact.whatsApp}?text=${website_name}%20hello%20${info.admin.name}`, '_blank');
                                         }}
                                     ><i class="fab fa-whatsapp"></i></button>
                                     <button className  = "instaBtn"
@@ -48,19 +48,18 @@ export default function Contact(props) {
                                             window.open(info.admin.contact.facebook, '_blank').focus();
                                         }}
                                     >
-                                        <div className = "whiteBg" >
-                                            <p></p>
-                                        </div>
                                         <i class="fab fa-facebook"
                                         ></i>
-                                      
-                                        
+                                
+                                    
                                     </button>
                                     <button className  = "phoneBtn" 
-                                        onClick = {()=>{
-                                            navigator.clipboard.writeText(info.admin.contact.mobile) ; 
-                                            alert("Copied contact number to Clipboard");
-                                        }}
+                                            onClick = {()=>{
+
+                                                window.open("tel:" + info.admin.contact.mobile)
+                                                navigator.clipboard.writeText(info.admin.contact.mobile) ; 
+                                                alert("Copied contact number to Clipboard");
+                                            }}
                                     ><i class="fas fa-phone"></i></button>
                                 </div>
                             
