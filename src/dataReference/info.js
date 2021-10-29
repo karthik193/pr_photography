@@ -2,11 +2,16 @@ export default {
     "title" : "PR Photography", 
     "admin" : {
         "name" : "ROHIT PODILA", 
-        "age" : 26 , 
-        "contact" : ["+917093123347" , "+919492393347"], 
+        "age" : 1996 , 
+        "contact" : {
+            "whatsApp" : "+917093123347", 
+            "mobile" : "+919492393347",
+            "instagram" : "https://www.instagram.com/photographer_pr_/",
+            "facebook" : "https://www.facebook.com/PRpodila/"
+        } ,  
         "address" : "16-1-192, near Vijay Durga Temple, Saidabad, Hyderabad, Telangana,500059."
     },
     "about" : "Here comes the Description" ,
     "categories" : ["Traditional" , "Nature" , "nextCatog" ] ,
-    "load_limit" : "3"
+    "load_limit" : "9"
 }

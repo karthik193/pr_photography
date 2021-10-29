@@ -1,3 +1,9 @@
+.navbar{
+  cursor: url('../images/nmlCursor.png') ,auto;
+}
+.navbar p{
+  cursor: url('../images/btnCursor.png') , pointer;
+}
 .sideNav {
   height: 200px;
   width: 15%;
@@ -5,6 +11,8 @@
   text-align: center;
   position: fixed;
   transition: 0.2s ease;
+
+  cursor:  url('../images/btnCursor.png') , auto;
 }
 
 .collapse {
@@ -21,7 +29,7 @@
   padding-right: 20px;
   font-size: 12px;
   transition: 0.3s ease;
-  cursor: pointer;
+  cursor: url('../images/btnCursor.png') , pointer;
   letter-spacing: 6px;
   user-select: none;
 }
@@ -35,7 +43,7 @@
   margin-left: 5px;
   height: 80px;
   width: auto;
-  cursor: pointer;
+  cursor: url('../images/btnCursor.png') , pointer;
   position: fixed;
 }
 
@@ -44,13 +52,13 @@
   margin-left: 5px;
   height: 60px;
   width: auto;
-  cursor: pointer;
+  cursor: url('../images/btnCursor.png') , pointer;
 }
 
 .collapsible {
   font-size: 12px;
   color: #9f9f9f;
-  cursor: pointer;
+  cursor: url('../images/btnCursor.png') , pointer;
 }
 
 .collapsible:hover {
@@ -104,6 +112,7 @@
 .powerOffBtn {
   font-size: 2em;
   color: whitesmoke;
+  cursor: url('../images/btnCursor.png') , pointer;
 }
 .powerOffBtn:hover {
   transition-duration: 0.7s;

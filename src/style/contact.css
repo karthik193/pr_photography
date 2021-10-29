@@ -1,6 +1,86 @@
 
 .contact {
+    display: inline-flexbox ; 
+    justify-content: space-around;
     width: 85%;
-    height: 400px;
     float: right;
+
 }
+
+.contactBox {
+    /* border : .1em solid white  ; */
+    width: fit-content; 
+}
+
+.reachOutBox{
+    display  : flex ; 
+    justify-content:  space-around;
+    width: 50%;
+}
+.whatsAppBtn , .instaBtn , .phoneBtn  , .facebookBtn{
+    border : none ; 
+    outline : none ; 
+    font-family: inherit;
+    font-size: 2rem;
+    color : inherit ;
+    background-color: transparent;
+}
+
+.phoneBtn{
+    font-size: 1.8em;
+}
+
+.whatsAppBtn:hover{
+    color : #25D366 ; 
+    transition: .5s ease;
+}
+.phoneBtn:hover{
+    color : #4099ff ; 
+    transition: .5s ease;
+}
+.instaBtn:hover{
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+
+
+    /* Also define standard property for compatibility */
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: .5s ease;
+}
+
+.facebookBtn .whiteBg{
+    
+    color : white ; 
+    background-color : transparent ; 
+    left: .5em;
+    top: 4px; 
+    width: .5em;
+    height: 70%;
+    border-radius: .5em;
+    position: absolute;
+     
+}
+.facebookBtn i {
+    top : 0 ; 
+    position: absolute;
+    z-index: 1 ; 
+}
+.facebookBtn {
+   position: relative; 
+   top : 1px ; 
+}
+.facebookBtn:hover{
+   
+    color : #4267B2 ; 
+    transition : .5s ease ; 
+}
+.facebookBtn:hover .whiteBg{
+   
+    background-color: white; 
+}
+tr , td {
+    padding : .5em ; 
+    background-color: rgb(39, 39, 39);
+}
+

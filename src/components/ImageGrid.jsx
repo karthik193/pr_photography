@@ -330,9 +330,7 @@ export default React.memo(function ImageGrid(props) {
                                                         onClick ={()=>imageModalHandler(doc.url )}
                                                         
                                                     >
-                                                        <i className  = "fas fa-expand expandIcon"  
-                                                        
-                                                        ></i>
+                                                        <i className  = "fas fa-expand expandIcon"  ></i>
                                                     </div>
                                                     {
                                                         localStorage.getItem("admin") == "true" && windowSize >= 992?
