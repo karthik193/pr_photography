@@ -56,9 +56,8 @@ export default function Contact(props) {
                                     <button className  = "phoneBtn" 
                                             onClick = {()=>{
 
-                                                window.open("tel:" + info.admin.contact.mobile)
-                                                navigator.clipboard.writeText(info.admin.contact.mobile) ; 
-                                                alert("Copied contact number to Clipboard");
+                                                window.open("tel:" + info.admin.contact.mobile) 
+                                                
                                             }}
                                     ><i class="fas fa-phone"></i></button>
                                 </div>
