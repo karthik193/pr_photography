@@ -4,3 +4,7 @@
     height: 400px;
     float: right;
 }
+
+.aboutContent {
+    line-height:  2em;
+}

@@ -1,9 +1,7 @@
-.navbar{
+.navbar:hover{
   cursor: url('../images/nmlCursor.png') ,auto;
 }
-.navbar p{
-  cursor: url('../images/btnCursor.png') , pointer;
-}
+
 .sideNav {
   height: 200px;
   width: 15%;

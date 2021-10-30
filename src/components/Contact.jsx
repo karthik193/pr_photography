@@ -13,15 +13,47 @@ export default function Contact(props) {
                 <table >
                     <tbody>
                         <tr>
-                            <td>Name</td>
+                            <td className  = "label" >Name</td>
                             <td>{info.admin.name}</td>
                         </tr>
                         <tr>
-                            <td>Age</td>
+                            <td className  = "label">Age</td>
                             <td>{todaysDate.getFullYear() - info.admin.age}</td>
                         </tr>
                         <tr>
-                            <td>Contact</td>
+                            <td className  = "label">Address</td>
+                            <td>{info.admin.address}</td>
+                        </tr>
+                        <tr>
+                            <td className  = "label">Email</td>
+                            <td>{info.admin.contact.email}
+                            &nbsp; 
+                            <button
+                                style ={
+                                    {
+                                        backgroundColor  : "transparent" , 
+                                        color : "white", 
+                                        outline : "none",
+                                        border : "none"                
+                                    }
+                                }
+                            >
+                                <i 
+                                    class="far fa-clone"
+                
+                                    onClick = {
+                                        ()=>{
+                                            navigator.clipboard.writeText(info.admin.contact.email) ; 
+                                            alert("email copied to clipboard");
+                                        }
+                                    }
+                                ></i>
+                            </button>
+                            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className  = "label">Contact</td>
                             <td>
                                
                                 <div className  = "reachOutBox" >

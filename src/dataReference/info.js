@@ -7,12 +7,13 @@ export default {
             "whatsApp" : "+919492393347", 
             "mobile" : "+919492393347",
             "instagram" : "https://www.instagram.com/photographer_pr_/",
-            "facebook" : "https://www.facebook.com/PRpodila/"
+            "facebook" : "https://www.facebook.com/PRpodila/" , 
+            "email" : "prphotograher57@gmail.com"
         } ,  
-        "address" : "16-1-192, near Vijay Durga Temple, Saidabad, Hyderabad, Telangana,500059.",
+        "address" : "Saidabad, Hyderabad, Telangana, 500059, India.",
         "site" : "pr-photography.web.app"
     },
-    "about" : "Here comes the Description" ,
+    "about" : "Rohit is a skilled photographer, mastering his art since 6 years. He is an expert in fashion and newborn photography, with an interest towards wildlife photography." ,
     "categories" : ["Traditional" , "Nature" , "nextCatog" ] ,
-    "load_limit" : "9"
+    "load_limit" : "9"  
 }

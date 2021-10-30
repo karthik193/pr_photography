@@ -52,8 +52,12 @@
     transition : .5s ease ; 
 }
 
+.label{
+    /* font-style: italic; */
+    font-weight: bold;
+}
 tr , td {
     padding : .6em ; 
-    background-color: rgb(17, 17, 17);
+    /* background-color: rgb(17, 17, 17); */
 }
 
