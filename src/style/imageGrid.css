@@ -84,7 +84,7 @@
         cursor: zoom-in ; 
 }
 .imageBox:hover  .gridImage{
-    opacity: 25%;
+    opacity: .25;
 }
 .centered {
     position: absolute;
@@ -104,7 +104,7 @@
     color : white ; 
     cursor: pointer;
     font-weight: bold;
-    border-radius: 1em;
+    border-radius: .5em;
     
 }
 .gridDeleteBtn:hover{

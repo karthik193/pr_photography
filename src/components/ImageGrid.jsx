@@ -103,17 +103,6 @@ export default React.memo(function ImageGrid(props) {
         getImages(); 
     }, []);
 
-    const mouseOverHandler  = (expandIconId)=>{
-         const expandIconElement  = document.getElementById(expandIconId) ; 
-         if(expandIconElement.classList.contains("display")){
-             expandIconElement.classList.remove("display") ; 
-             expandIconElement.classList.add("noDisplay") ; 
-         } else {
-             expandIconElement.classList.remove("noDisplay") ; 
-             expandIconElement.classList.add("display") ; 
-         }
-         
-    }
     const imageModalHandler  = (imageurl)=>{
 
         setModalStatus((prev)=>{
@@ -291,12 +280,7 @@ export default React.memo(function ImageGrid(props) {
                                         
                                         return(
                                             <div 
-                                                className = "imageBox"
-                                                onMouseEnter = {()=>{mouseOverHandler(doc.id);}}
-                                                onMouseLeave = {()=>{mouseOverHandler(doc.id);}}
-                                                onClick ={()=>{
-                                                    imageModalHandler(doc.url)
-                                                }}
+                                                className = "imageBox"  
                                             >
                                                 <img  
                                                     className  = "gridImage" 
@@ -304,6 +288,9 @@ export default React.memo(function ImageGrid(props) {
                                                     src = {doc.compressedUrl} 
                                                     alt  = {doc.alt}
                                                     loading = "lazy"
+                                                    onClick ={()=>{
+                                                        imageModalHandler(doc.url)
+                                                    }}
                                                 ></img>
                                                 <div
                                                     id  = {doc.id}
