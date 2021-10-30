@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import React , { createContext, Suspense, useContext, useMemo, useState } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -12,10 +12,10 @@ import Banner from "./components/Banner";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import ImageGrid from "./components/ImageGrid";
 import Login from "./components/admin/Login";
 import Upload from "./components/admin/Upload";
 
+const ImageGrid  = React.lazy(()=> import('./components/ImageGrid')) ; 
 export const CategoryContext = createContext({
   category: "",
   setCategory: () => {},
@@ -38,7 +38,9 @@ function App() {
               exact
               path="/"
               render={(props) => (
+                <Suspense fallback  = {<div>Loading...</div>}>
                 <ImageGrid setShowNav={setShowNav} {...props} />
+                </Suspense>
               )}
             />
             <Route

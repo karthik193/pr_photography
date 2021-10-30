@@ -6,10 +6,6 @@ body{
   background-color: black;
   color : white ;  
   letter-spacing: 6px;
-  cursor: url("./images/nmlCursor.png") , auto;
-}
-button:hover{
-  cursor: url('./images/btnCursor.png') , pointer;
 }
 
 

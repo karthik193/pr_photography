@@ -24,7 +24,7 @@ export default React.memo(function ImageGrid(props) {
         deleteStart : false
     });
     const [shouldLoad , setShouldLoad]  = useState(0); 
-    const [lastVisibleDoc , setLVD] = useState(null) ; 
+    const [lastVisibleDoc , setLVD] = useState(-1) ; 
     console.log(lastVisibleDoc , "last DOC render");
     const db  = getFirestore() ; 
     const imageCollection  = collection(db  , "image_meta_data") ;
@@ -233,7 +233,6 @@ export default React.memo(function ImageGrid(props) {
                     closeTimeoutMS = {500}
                     onRequestClose = {()=>imageModalHandler("")}
                 >
-
                     <img className  = "modalImage" src = {modalStatus.modalImage}></img>
                     <button className = "modalCloseButton" onClick ={()=>{
                         imageModalHandler("")
@@ -281,7 +280,7 @@ export default React.memo(function ImageGrid(props) {
                     
                     
                 </Modal>
-                <Suspense   fallback  = { <div>Loading...</div> }>
+                
                 
                     {
                         images.map((colImages , colIndex) =>{
@@ -296,8 +295,6 @@ export default React.memo(function ImageGrid(props) {
                                                 onMouseEnter = {()=>{mouseOverHandler(doc.id);}}
                                                 onMouseLeave = {()=>{mouseOverHandler(doc.id);}}
                                                 onClick ={()=>{
-                                                    
-                                                    if(window.screen.availWidth < 992)
                                                     imageModalHandler(doc.url)
                                                 }}
                                             >
@@ -320,18 +317,6 @@ export default React.memo(function ImageGrid(props) {
                                                         }
                                                     }
                                                 >
-                                                    <div 
-                                                        
-                                                        style = {
-                                                            {
-                                                                padding : "0em"
-                                                            }
-                                                        }
-                                                        onClick ={()=>imageModalHandler(doc.url )}
-                                                        
-                                                    >
-                                                        <i className  = "fas fa-expand expandIcon"  ></i>
-                                                    </div>
                                                     {
                                                         localStorage.getItem("admin") == "true" && windowSize >= 992?
                                                         <button
@@ -357,10 +342,17 @@ export default React.memo(function ImageGrid(props) {
                             )
                         })
                     }
-                </Suspense>          
+                        
             </div>
             <div className  = "loadMore" >
-                {lastVisibleDoc ?<button onClick  = {LoadNextImages}> Load More Images</button>: <p>NO MORE IMAGES TO LOAD</p>}
+                {lastVisibleDoc  == -1 ? 
+                    <p>Loading...</p>:
+                    (
+                        lastVisibleDoc ?
+                        <button onClick  = {LoadNextImages}> Load More Images</button>: 
+                        <p>NO MORE IMAGES TO LOAD</p>
+                    )
+                }
             </div>
         </div>
     );
