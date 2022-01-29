@@ -77,6 +77,11 @@
     color : rgb(255, 86, 86) ; 
     transition: .5s ease ;
 }
+.categoryHeader{
+    background-color: rgb(24, 24, 24);
+    margin: 0px; 
+    padding: .3em;
+}
 .imageBox{
         position: relative;
         text-align: center;

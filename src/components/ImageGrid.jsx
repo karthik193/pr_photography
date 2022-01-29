@@ -8,11 +8,13 @@ import { redirectHandler } from "../functions/helpers";
 import { useHistory } from "react-router";
 import { CategoryContext } from "../App";
 import info from '../dataReference/info'  ; 
+
 export default React.memo(function ImageGrid(props) {
     props.setShowNav(true);
     const history   = useHistory(); 
     const windowSize  = window.screen.availWidth ; 
     const [images , setImages] = useState([]) ; 
+    const [filteredImages , setFilteredImages] = useState([]); 
     const [modalStatus , setModalStatus] = useState({
         modalOpen : false , 
         modalImage : ""
@@ -23,6 +25,8 @@ export default React.memo(function ImageGrid(props) {
         imageId : "", 
         deleteStart : false
     });
+
+    const {category, setCategory} = useContext(CategoryContext);
     const [shouldLoad , setShouldLoad]  = useState(0); 
     const [lastVisibleDoc , setLVD] = useState(-1) ; 
     console.log(lastVisibleDoc , "last DOC render");
@@ -102,6 +106,29 @@ export default React.memo(function ImageGrid(props) {
         }
         getImages(); 
     }, []);
+    console.log("F I - >" , filteredImages) ; 
+    useEffect(()=>{
+        function ImageFilter(){
+            let arr  = [[],[],[]] ;
+            
+            let col_no = 0 ; 
+            images.forEach((col)=>{
+
+                col.forEach((doc)=>{
+                    if((doc.category === category || category ==="")){
+                        arr[(col_no)].push(doc) ;
+                        col_no = (col_no+1)%3 ;
+                    }
+                });
+                
+                    
+            });
+            setFilteredImages(arr); 
+
+        }
+        ImageFilter(); 
+    }, [category , images]);
+    
 
     const imageModalHandler  = (imageurl)=>{
 
@@ -270,14 +297,17 @@ export default React.memo(function ImageGrid(props) {
                     
                 </Modal>
                 
-                
+                {category !="" ?<h1 className="categoryHeader">{category}</h1>: null}
                     {
-                        images.map((colImages , colIndex) =>{
+                        
+                        filteredImages.map((colImages , colIndex) =>{
+
+                            console.log("col mapping" , doc); 
                             return(
                                 <div className = "col" key = {colIndex}>
                                     {colImages.map((doc  , index)=>{
 
-                                        
+                                        console.log("mapping" , doc); 
                                         return(
                                             <div 
                                                 className = "imageBox"  
